@@ -1,22 +1,59 @@
-import React from 'react'
-import { Nav } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import AccountDropdown from './AccountDropdown'
+import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import { AppBar, Toolbar, Typography } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/material/Menu';
+import { Link } from "react-router-dom";
 
-function NavigationBar() {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "nowrap",
+    justifyContent: "space_between"
+  },
+  link: {
+    width: "60px",
+    color: "#FFF",
+    cursor: "pointer",
+    textDecoration: "none",
+    "&:hover": {
+      borderBottom: "1px solid white",
+    },
+  },
+  placeholder: {
+    width: "60px"
+  },
+  logo: {
+    flexGrow: "1",
+  }
+}))
 
-    return(
-        <Nav fill style={{ backgroundColor:'#0F2C80', paddingTop:'30px', paddingBottom:'30px'}}>
-            <Nav.Item className='mt-2'>
-                <Link to="/properties" style={{color:'white', textDecoration: 'none'}}>My Properties</Link>
-            </Nav.Item>
-            <Nav.Item className='mt-2'>
-                <Link to="/bookings" style={{color:'white', textDecoration: 'none'}}>My Bookings</Link>
-            </Nav.Item>
-            <Nav.Item className='mt-2'>
-                <AccountDropdown/>
-            </Nav.Item>
-        </Nav>
+function NavigationBar({ user, setUser}) {
+
+    const classes = useStyles();
+
+    function logOut() {
+      return(
+        <Link to="/" className={classes.link}>
+          Log Out
+        </Link>
+      )
+    }
+
+    return (
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar variant="dense">
+            <div className={classes.placeholder}></div>
+            <Typography variant="h4" className={classes.logo}>
+              HouseStuff
+            </Typography>
+            {!!Object.keys(user).length ? logOut() : <></>}
+          </Toolbar>
+        </AppBar>
+      </div>
     )
 }
 
