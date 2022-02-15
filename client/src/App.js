@@ -9,7 +9,7 @@ import { Switch, Route } from "react-router-dom";
 import '@fontsource/roboto/400.css';
 
 function App() {
-  const [user, setUser] = useState({hello: 1})
+  const [user, setUser] = useState({})
 
   return (
     <div className="App">

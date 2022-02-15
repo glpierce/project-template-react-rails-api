@@ -1,25 +1,27 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { FormControl, InputLabel, Input, FormHelperText, TextField } from '@mui/material';
+import { FormControl, InputLabel, Input, FormHelperText, TextField, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 
 
-function ProviderSignup() {
+function ProviderSignup({setUser}) {
   const [providerName, setProviderName] = useState("")
+  const [location, setLocation] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/signup", {
+    fetch("/providers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        providerName,
+        name: providerName,
         email,
+        location,
         password,
         password_confirmation: passwordConfirmation,
       }),
@@ -51,6 +53,13 @@ function ProviderSignup() {
         />
 <TextField
           required
+          id="provider-location"
+          label="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+        />
+<TextField
+          required
           id="provider-password"
           label="Password"
           value={password}
@@ -63,6 +72,7 @@ function ProviderSignup() {
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
+        <Button variant="outlined" onClick={handleSubmit} >Sign Up!</Button>
 </FormControl>
 </Box>
     </div>
