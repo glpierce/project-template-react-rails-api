@@ -1,5 +1,5 @@
 class OwnersController < ApplicationController
-    skip_before_action :authorize, only: [:create]
+    # skip_before_action :authorize, only: [:create]
 
     def create
         new_owner = Owner.create!(owner_params)
@@ -13,13 +13,13 @@ class OwnersController < ApplicationController
 
     def show
         owner = Owner.find(params[:id])
-        render json: owner, status: ok
+        render json: owner, status: 200
     end
 
     private
 
     def owner_params
-        params.permit(:name, :email, :password, :password_confirmation)
+        params.permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
 
 end

@@ -1,9 +1,9 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { FormControl, InputLabel, Input, FormHelperText, TextField } from '@mui/material';
+import { FormControl, InputLabel, Input, FormHelperText, TextField, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 
-function OwnerSignup() {
+function OwnerSignup({setUser}) {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [email, setEmail] = useState("");
@@ -12,20 +12,24 @@ function OwnerSignup() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/signup", {
+    fetch("/owners", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        firstName,
-        lastName,
+        first_name: firstName,
+        last_name: lastName,
         email,
         password,
         password_confirmation: passwordConfirmation,
       }),
     })
-      .then((r) => r.json())
+    .then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
   }
   return (
     <div>
@@ -110,10 +114,7 @@ function OwnerSignup() {
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
-  {/* <InputLabel htmlFor="my-input">Email address</InputLabel>
-  <Input id="my-input" aria-describedby="my-helper-text"       onChange={(e) => setEmail(e.target.value)}
-/>
-  <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText> */}
+ <Button variant="outlined" onClick={handleSubmit}>Sign Up!</Button>
 </FormControl>
 </Box>
     </div>

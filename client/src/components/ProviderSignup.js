@@ -1,10 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { FormControl, InputLabel, Input, FormHelperText, TextField } from '@mui/material';
+import { FormControl, InputLabel, Input, FormHelperText, TextField, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 
 
-function ProviderSignup() {
+function ProviderSignup({setUser}) {
   const [providerName, setProviderName] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -63,6 +63,7 @@ function ProviderSignup() {
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
+        <Button variant="outlined" onClick={handleSubmit} >Sign Up!</Button>
 </FormControl>
 </Box>
     </div>

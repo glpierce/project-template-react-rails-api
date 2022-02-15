@@ -7,9 +7,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import OwnerSignup from './OwnerSingup';
 import ProviderSignup from './ProviderSignup';
+import {useState, useEffect} from 'react'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+ 
 
   return (
     <div
@@ -45,6 +47,16 @@ function SignupTabs() {
   const [value, setValue] = React.useState(0);
   const [ownerToggle, setOwnerToggled] = React.useState(false)
   const [providerToggle, setProviderToggled] = React.useState(false)
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // auto-login
+      fetch("/owners/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -52,10 +64,10 @@ function SignupTabs() {
 
   function handleClick(e){
    let tab = e.target.value
-    { tab == 'owner' ? setOwnerToggled(true) : setOwnerToggled(false) }
-    { tab == 'pro' ? setProviderToggled(true) : setProviderToggled(false) }
+    { tab === 'owner' ? setOwnerToggled(true) : setOwnerToggled(false) }
+    { tab === 'pro' ? setProviderToggled(true) : setProviderToggled(false) }
   }
-
+  
   return (
     <div id='signup'>
       <Box sx={{ width: '100%' }}>
@@ -68,7 +80,7 @@ function SignupTabs() {
         <TabPanel value={value} index={0}>
           <div>Track your property’s maintenance needs and hire the right professionals that you can trust.</div>
           <br />
-          { ownerToggle ? <OwnerSignup /> : null }
+          { ownerToggle ? <OwnerSignup setUser={setUser}/> : null }
           { !ownerToggle ?
             <Button 
               variant="contained"
@@ -81,7 +93,7 @@ function SignupTabs() {
         <TabPanel value={value} index={1}>
           <div>Get connected with property owners in your area.</div>
           <br />
-          { providerToggle ? <ProviderSignup /> : null }
+          { providerToggle ? <ProviderSignup setUser={setUser} /> : null }
           { !providerToggle ?
           <Button
             variant="contained" 
