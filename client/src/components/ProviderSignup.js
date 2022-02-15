@@ -27,7 +27,7 @@ function ProviderSignup() {
       .then((r) => r.json())
   }
   return (
-    <div>ProviderLogin
+    <div>
       <Box
        component="form"
        sx={{
@@ -69,4 +69,4 @@ function ProviderSignup() {
   )
 }
 
-export default ProviderSignup
+export default ProviderSignup;
