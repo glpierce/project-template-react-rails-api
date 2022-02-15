@@ -10,6 +10,8 @@ function App() {
   return (
     <div className="App">
       <HomeScreen />
+      {/* owner dash here is temporary for development */}
+      <OwnerDash />
     </div>
   );
 }
