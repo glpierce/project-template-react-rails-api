@@ -16,3 +16,14 @@ code {
   /* top, right, bottom, left  */
   margin: 15% 30% 0 30%;
 }
+
+#owner-dash-list {
+  margin-top: 20%;
+  float: left;
+}
+
+#owner-dash-table {
+  margin-top: 20%;
+  float: right;
+  margin-right: 35%;
+}

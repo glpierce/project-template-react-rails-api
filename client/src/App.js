@@ -6,10 +6,20 @@ import OwnerDash from "./components/OwnerDash";
 import '@fontsource/roboto/400.css';
 
 function App() {
+  const [user, setUser] = useState(null);
   
   return (
     <div className="App">
-      <HomeScreen />
+      <main>
+        <HomeScreen />
+
+        {/* OwnerDash placement is temporary for development */}
+        <div>
+          <OwnerDash />
+        </div>
+        {/* OwnerDash placement is temporary for development */}
+
+      </main>
     </div>
   );
 }

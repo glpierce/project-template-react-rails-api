@@ -9,15 +9,16 @@ function OwnerDash() {
 
 
     function handleListClick(e, target) {
-        console.log(target)
+        { target == 'properties' ? setTableToggle(true) : setTableToggle(false) }
+        { target == 'bookings' ? setBookingsToggle(true) : setBookingsToggle(false) }
     }
 
     return (
         <div>
-            <div>
+            <div id='owner-dash-list'>
                 <OwnerDashList handleListClick={handleListClick} />
             </div>
-            <div>
+            <div id='owner-dash-table'>
                { tableToggle ?  <OwnerDashTable /> : <OwnerDashBookings /> }
             </div>
         </div>
