@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import HomeScreen from "./components/HomeScreen";
-import OwnerDash from "./components/OwnerDash";
+// import OwnerDash from "./components/OwnerDash";
 
 import '@fontsource/roboto/400.css';
 
 function App() {
+  const [user, setUser] = useState(null);
   
   return (
     <div className="App">
-      <HomeScreen />
-      {/* owner dash here is temporary for development */}
-      <OwnerDash />
+      <main>
+          {/* owner dash here is temporary for development */}
+          {/* <OwnerDash /> */}
+          <HomeScreen />
+      </main>
     </div>
   );
 }
