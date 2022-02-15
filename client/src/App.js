@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
 import HomeScreen from "./components/HomeScreen";
-// import OwnerDash from "./components/OwnerDash";
+import OwnerDash from "./components/OwnerDash";
 
 import '@fontsource/roboto/400.css';
 
@@ -11,9 +11,14 @@ function App() {
   return (
     <div className="App">
       <main>
-          {/* owner dash here is temporary for development */}
-          {/* <OwnerDash /> */}
-          <HomeScreen />
+        <HomeScreen />
+
+        {/* OwnerDash placement is temporary for development */}
+        <div>
+          <OwnerDash />
+        </div>
+        {/* OwnerDash placement is temporary for development */}
+
       </main>
     </div>
   );
