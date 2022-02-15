@@ -11,7 +11,6 @@ import {useState, useEffect} from 'react'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
- 
 
   return (
     <div
@@ -84,6 +83,7 @@ function SignupTabs() {
           { !ownerToggle ?
             <Button 
               variant="contained"
+              color="primary"
               value='owner'
               onClick={handleClick}
             >
