@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  namespace :api do
+  # namespace :api do
     resources :services
     resources :provider_services
     
@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     delete "/logout", to: "sessions#destroy"
     get "/owners/me", to: "owners#show"
     get "/providers/me", to: "providers#show"
-  end
+  # end
 
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

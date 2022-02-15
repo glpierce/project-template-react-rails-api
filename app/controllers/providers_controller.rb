@@ -1,5 +1,5 @@
 class ProvidersController < ApplicationController
-    skip_before_action :authorize, only: [:create]
+    # skip_before_action :authorize, only: [:create]
 
     def create
         new_provider = Provider.create!(provider_params)
@@ -19,6 +19,6 @@ class ProvidersController < ApplicationController
     private
 
     def provider_params
-        params.permit(:name, :email, :password, :password_confirmation, :location)
+        params.permit(:name, :email, :account_type, :password, :password_confirmation, :location).with_defaults(account_type: 'provider')
     end
 end

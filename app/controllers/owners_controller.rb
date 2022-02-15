@@ -19,7 +19,7 @@ class OwnersController < ApplicationController
     private
 
     def owner_params
-        params.permit(:first_name, :last_name, :email, :password, :password_confirmation)
+        params.permit(:first_name, :last_name, :email, :account_type, :password, :password_confirmation).with_defaults(account_type: 'owner')
     end
 
 end
