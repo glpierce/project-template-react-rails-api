@@ -1,8 +1,8 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
-import { FormControl, InputLabel, Input, FormHelperText, TextField, Button } from '@mui/material';
+import { useState } from 'react'
+import { FormControl, TextField, Button } from '@mui/material';
 import Box from '@mui/material/Box';
-
+import { useHistory } from "react-router-dom"
 
 function ProviderSignup({setUser}) {
   const [providerName, setProviderName] = useState("")
@@ -10,6 +10,13 @@ function ProviderSignup({setUser}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const history = useHistory();
+
+  function loginSuccess(userResp) {
+    console.log(userResp)
+    setUser(userResp)
+    history.push(userResp.account_type == "owner" ? "/owner" : "/provider")
+}
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -26,11 +33,15 @@ function ProviderSignup({setUser}) {
         password_confirmation: passwordConfirmation,
       }),
     }).then((r) => {
+      // setIsLoading(false);
       if (r.ok) {
-        r.json().then((user) => setUser(user));
+          r.json().then((userResp) => loginSuccess(userResp));
+      } else {
+          r.json().then((err) => console.log(err.errors));
       }
-    });
-  }
+  });
+}
+
   return (
     <div>
       <Box
