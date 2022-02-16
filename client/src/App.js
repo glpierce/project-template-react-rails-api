@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from "react";
 import './App.css';
+import NavigationBar from "./components/NavigationBar";
 import HomeScreen from "./components/HomeScreen";
 import OwnerDash from "./components/OwnerDash";
+import ProviderDash from "./components/ProviderDash"
+import { Switch, Route } from "react-router-dom";
 
 import '@fontsource/roboto/400.css';
 
 function App() {
-  const [user, setUser] = useState(null);
-  
+  const [user, setUser] = useState({})
+
   return (
     <div className="App">
-      <main>
-        <HomeScreen />
+      <NavigationBar user={user} setUser={setUser} />
+      <Switch>
 
-        {/* OwnerDash placement is temporary for development */}
-        <div>
-          <OwnerDash />
-        </div>
-        {/* OwnerDash placement is temporary for development */}
+        <Route path={"/provider"}>
+          <ProviderDash user={user} setUser={setUser} />
+        </Route>
 
-      </main>
+        <Route path={"/owner"}>
+          <OwnerDash user={user} setUser={setUser} />
+        </Route>
+      
+        <Route path={"/"}>
+          <HomeScreen user={user} setUser={setUser} />
+        </Route>
+
+      </Switch>
     </div>
   );
 }
