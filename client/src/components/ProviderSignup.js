@@ -25,8 +25,11 @@ function ProviderSignup({setUser}) {
         password,
         password_confirmation: passwordConfirmation,
       }),
-    })
-      .then((r) => r.json())
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
   }
   return (
     <div>

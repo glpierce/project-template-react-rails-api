@@ -3,6 +3,7 @@ class ProvidersController < ApplicationController
 
     def create
         new_provider = Provider.create!(provider_params)
+        session[:provider_id] = new_provider.id
         render json: new_provider, status: 201
     end
 
@@ -12,8 +13,8 @@ class ProvidersController < ApplicationController
     end
 
     def show
-        provider = Provider.find(params[:id])
-        render json: provider, status: ok
+        provider = Provider.find_by(id: session[:provider_id])
+        render json: provider, status: 200
     end
 
     private

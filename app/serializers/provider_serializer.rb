@@ -1,3 +1,3 @@
 class ProviderSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :name, :location, :email, :account_type
 end

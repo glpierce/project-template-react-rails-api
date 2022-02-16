@@ -51,9 +51,10 @@ function SignupTabs() {
 
   useEffect(() => {
     // auto-login
-      fetch("/owners/me").then((r) => {
+      fetch(ownerToggle ? "/owners/me" : "/providers/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
+        console.log(user)
       }
     });
   }, []);

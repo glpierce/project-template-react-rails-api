@@ -10,11 +10,11 @@ import Paper from '@mui/material/Paper';
 function OwnerDashTable() {
     const [properties, setProperties] = useState([]);
 
-    useEffect(() => {
-        fetch("/properties/${user.id}")
-        .then(res => res.json())
-        .then(propertyData => setProperties(propertyData))
-    }, [])
+    // useEffect(() => {
+    //     fetch("/properties/${user.id}")
+    //     .then(res => res.json())
+    //     .then(propertyData => setProperties(propertyData))
+    // }, [])
 
   return (
     <TableContainer component={Paper}>
