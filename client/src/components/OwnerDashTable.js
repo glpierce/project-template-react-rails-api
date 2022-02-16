@@ -10,10 +10,12 @@ import Paper from '@mui/material/Paper';
 function OwnerDashTable({ user, setUser }) {
     const [properties, setProperties] = useState([]);
 
+    console.log('User: ', user.properties)
+
     useEffect(() => {
-        fetch("/properties/${user.id}")
+        fetch(`/owners/me`)
         .then(res => res.json())
-        .then(propertyData => setProperties(propertyData))
+        .then(propertyData => console.log(propertyData.properties))
     }, [])
 
   return (
@@ -29,7 +31,7 @@ function OwnerDashTable({ user, setUser }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {properties.map((property) => (
+          {properties.map((property) => (
             <TableRow
               key={property.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -39,10 +41,10 @@ function OwnerDashTable({ user, setUser }) {
               </TableCell>
               <TableCell align="right">{property.name}</TableCell>
               <TableCell align="right">{property.address}</TableCell>
-              <TableCell align="right">{property.tasks}</TableCell>
-              <TableCell align="right">{property.bookings}</TableCell>
+              <TableCell align="right">{property.tasks.length}</TableCell>
+              <TableCell align="right">{property.bookings.length}</TableCell>
             </TableRow>
-          ))} */}
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

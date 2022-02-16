@@ -35,18 +35,9 @@ function Login({ user, setUser }) {
             if (r.ok) {
                 r.json().then((userResp) => loginSuccess(userResp));
             } else {
-                r.json().then((err) => console.log(err.errors));
+                r.json().then((err) => setErrors(err.errors));
             }
         });
-    }
-
-    function printErrors() {
-        if (!!errors.length) {
-            const errorElements = errors.map((err) => (<p key={err}>{err}</p>))
-            return(errorElements)
-        } else {
-            return(<></>)
-        }
     }
 
     return (
@@ -82,7 +73,7 @@ function Login({ user, setUser }) {
                         {isLoading ? "Loading..." : "Login"}
                     </Button>
                     <div>
-                        {printErrors()}
+                        <p>{errors}</p>
                     </div>
                 </Box>
             </form>
