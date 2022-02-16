@@ -47,7 +47,7 @@ function NavigationBar({ user, setUser}) {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar variant="dense">
-            <div className={classes.placeholder}></div>
+            {!!Object.keys(user).length ? <div className={classes.placeholder}></div> : <></>}
             <Typography variant="h4" className={classes.logo}>
               HouseStuff
             </Typography>

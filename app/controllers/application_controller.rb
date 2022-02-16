@@ -14,9 +14,8 @@ class ApplicationController < ActionController::API
         Owner.find_by(id: session[:owner_id])
       elsif (Provider.find_by(id: session[:provider_id]))
         Provider.find_by(id: session[:provider_id])
-      else
-        render json: { errors: ["Not authorized"] }, status: 401 unless @current_user
       end
+      render json: { errors: ["Not authorized"] }, status: 401 unless @current_user
   end
 
   def render_422(invalid)
