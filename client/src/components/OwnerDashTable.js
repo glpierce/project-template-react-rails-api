@@ -10,14 +10,14 @@ import Paper from '@mui/material/Paper';
 function OwnerDashTable({ user, setUser }) {
     const [properties, setProperties] = useState([]);
 
-    console.log('User: ', user.properties)
-
+    console.log(properties)
+    
     useEffect(() => {
-        fetch(`/owners/me`)
-        .then(res => res.json())
-        .then(propertyData => console.log(propertyData.properties))
+      fetch("/owners/me")
+      .then(res => res.json())
+      .then(propertyData => setProperties(propertyData.properties))
     }, [])
-
+    
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -31,19 +31,19 @@ function OwnerDashTable({ user, setUser }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {properties.map((property) => (
-            <TableRow
-              key={property.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {property.name}
-              </TableCell>
-              <TableCell align="right">{property.name}</TableCell>
-              <TableCell align="right">{property.address}</TableCell>
-              <TableCell align="right">{property.tasks.length}</TableCell>
-              <TableCell align="right">{property.bookings.length}</TableCell>
-            </TableRow>
+          {properties.map((property) => (console.log('Property: ', property)
+            // <TableRow
+            //   key={property.name}
+            //   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            // >
+            //   <TableCell component="th" scope="row">
+            //     {property.name}
+            //   </TableCell>
+            //   <TableCell align="right">{property.name}</TableCell>
+            //   <TableCell align="right">{property.address}</TableCell>
+            //   <TableCell align="right">{property.tasks.length}</TableCell>
+            //   <TableCell align="right">{property.bookings.length}</TableCell>
+            // </TableRow>
           ))}
         </TableBody>
       </Table>
