@@ -25,7 +25,7 @@ function App() {
         </Route>
       
         <Route path={"/"}>
-          <HomeScreen user={user} setUser={setUser} />
+          <HomeScreen setUser={setUser} />
         </Route>
 
       </Switch>
