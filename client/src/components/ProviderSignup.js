@@ -65,6 +65,7 @@ function ProviderSignup({setUser}) {
           required
           id="provider-password"
           label="Password"
+          type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
@@ -72,9 +73,11 @@ function ProviderSignup({setUser}) {
           required
           id="provider-confirm"
           label="Confirm Password"
+          type="password"
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
+        <br />
         <Button variant="outlined" onClick={handleSubmit} >Sign Up!</Button>
 </FormControl>
 </Box>

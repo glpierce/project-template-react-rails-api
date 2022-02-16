@@ -17,22 +17,22 @@ puts "Seeding properties..."
 p1 = Property.create!(  address: "141 Buena Vista Ave E, San Francisco, CA 94117 USA",
                         city: "San Francisco, CA",
                         owner_occupied: true,
-                        owner_id = o1.id)
+                        owner_id: o1.id)
 
 p2 = Property.create!(  address: "1600 Pennsylvania Ave NW, Washington, DC 20500 USA",
                         city: "Washington, DC",
                         owner_occupied: false,
-                        owner_id = o1.id)
+                        owner_id: o1.id)
 
 p3 = Property.create!(  address: "1433 Russell St, Nashville, TN 37206 USA",
                         city: "Nashville, TN",
                         owner_occupied: false,
-                        owner_id = o1.id)
+                        owner_id: o1.id)
 
 p4 = Property.create!(  address: "11 Wall St, New York, NY 10005 USA",
                         city: "New York, NY",
                         owner_occupied: false,
-                        owner_id = o2.id)
+                        owner_id: o2.id)
 
 puts "Seeding tasks..."
 

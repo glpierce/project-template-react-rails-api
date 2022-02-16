@@ -114,6 +114,7 @@ function OwnerSignup({setUser}) {
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
+        <br />
  <Button variant="outlined" onClick={handleSubmit}>Sign Up!</Button>
 </FormControl>
 </Box>
