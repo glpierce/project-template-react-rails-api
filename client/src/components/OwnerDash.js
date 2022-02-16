@@ -3,14 +3,19 @@ import OwnerDashList from './OwnerDashList';
 import OwnerDashTable from './OwnerDashTable';
 import OwnerDashBookings from "./OwnerDashBookings";
 
-function OwnerDash() {
+function OwnerDash({ user, setUser }) {
     const [tableToggle, setTableToggle] = useState(true)
     const [bookingsToggle, setBookingsToggle] = useState(false)
 
 
     function handleListClick(e, target) {
-        { target == 'properties' ? setTableToggle(true) : setTableToggle(false) }
-        { target == 'bookings' ? setBookingsToggle(true) : setBookingsToggle(false) }
+        if (target == 'properties') {
+            setTableToggle(true)
+            setBookingsToggle(false)
+        } else if (target == 'bookings') {
+            setBookingsToggle(true)
+            setTableToggle(false)
+        }
     }
 
     return (
@@ -19,7 +24,9 @@ function OwnerDash() {
                 <OwnerDashList handleListClick={handleListClick} />
             </div>
             <div id='owner-dash-table'>
-               { tableToggle ?  <OwnerDashTable /> : <OwnerDashBookings /> }
+               { tableToggle ?  
+                <OwnerDashTable user={user} setUser={setUser} /> : 
+                <OwnerDashBookings user={user} setUser={setUser} /> }
             </div>
         </div>
     )

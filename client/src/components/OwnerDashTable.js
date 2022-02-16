@@ -7,14 +7,14 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function OwnerDashTable() {
+function OwnerDashTable({ user, setUser }) {
     const [properties, setProperties] = useState([]);
 
-    // useEffect(() => {
-    //     fetch("/properties/${user.id}")
-    //     .then(res => res.json())
-    //     .then(propertyData => setProperties(propertyData))
-    // }, [])
+    useEffect(() => {
+        fetch("/properties/${user.id}")
+        .then(res => res.json())
+        .then(propertyData => setProperties(propertyData))
+    }, [])
 
   return (
     <TableContainer component={Paper}>

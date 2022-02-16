@@ -11,7 +11,6 @@ import {useState, useEffect} from 'react'
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
- 
 
   return (
     <div
@@ -43,30 +42,19 @@ function a11yProps(index) {
   };
 }
 
-function SignupTabs() {
+function SignupTabs({ user, setUser }) {
   const [value, setValue] = React.useState(0);
-  const [ownerToggle, setOwnerToggled] = React.useState(false)
-  const [providerToggle, setProviderToggled] = React.useState(false)
-  const [user, setUser] = useState(null);
+  const [ownerToggle, setOwnerToggle] = React.useState(false)
+  const [providerToggle, setProviderToggle] = React.useState(false)
 
-  useEffect(() => {
-    // auto-login
-      fetch(ownerToggle ? "/owners/me" : "/providers/me").then((r) => {
-      if (r.ok) {
-        r.json().then((user) => setUser(user));
-        console.log(user)
-      }
-    });
-  }, []);
-
-  const handleChange = (event, newValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
   };
 
   function handleClick(e){
    let tab = e.target.value
-    { tab === 'owner' ? setOwnerToggled(true) : setOwnerToggled(false) }
-    { tab === 'pro' ? setProviderToggled(true) : setProviderToggled(false) }
+    { tab === 'owner' ? setOwnerToggle(true) : setOwnerToggle(false) }
+    { tab === 'pro' ? setProviderToggle(true) : setProviderToggle(false) }
   }
   
   return (
@@ -83,13 +71,8 @@ function SignupTabs() {
           <br />
           { ownerToggle ? <OwnerSignup setUser={setUser}/> : null }
           { !ownerToggle ?
-            <Button 
-              variant="contained"
-              value='owner'
-              onClick={handleClick}
-            >
-            Get Started
-          </Button> : null }
+            <Button variant="contained" color="primary" value='owner' onClick={handleClick}>
+            Get Started</Button> : null }
         </TabPanel>
         <TabPanel value={value} index={1}>
           <div>Get connected with property owners in your area.</div>

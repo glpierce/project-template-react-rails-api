@@ -13,28 +13,28 @@ function OwnerDashList({ handleListClick }) {
 
     return (
         <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      <nav aria-label="main mailbox folders">
-        <List>
-          <ListItem onClick={(e) => handleListClick(e, 'properties')} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Properties" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem onClick={(e) => handleListClick(e, 'bookings')} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <DateRangeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Bookings" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </nav>
-      <Divider />
-    </Box>
+          <nav aria-label="main mailbox folders">
+            <List>
+              <ListItem onClick={(e) => handleListClick(e, 'properties')} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Properties" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem onClick={(e) => handleListClick(e, 'bookings')} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <DateRangeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Bookings" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </nav>
+          <Divider />
+        </Box>
     )
 }
 

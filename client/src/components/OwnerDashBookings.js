@@ -7,11 +7,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function OwnerDashBookings() {
+function OwnerDashBookings({ user, setUser }) {
     const [bookings, setBookings] = useState([]);
 
     useEffect(() => {
-        fetch("/bookings/${user.id}")
+        fetch("/properties/${user.id}/bookings")
         .then(res => res.json())
         .then(bookingsData => setBookings(bookingsData))
     }, [])
@@ -30,21 +30,19 @@ function OwnerDashBookings() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {bookings.map((booking) => (
+          {/* {bookings.map((booking) => (
             <TableRow
               key={booking.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
-                {booking.name}
-              </TableCell>
+              <TableCell component="th" scope="row">{booking.name} </TableCell>
               <TableCell align="right">{booking.name}</TableCell>
               <TableCell align="right">{booking.service}</TableCell>
               <TableCell align="right">{booking.date}</TableCell>
               <TableCell align="right">{booking.provider}</TableCell>
               <TableCell align="right">{booking.price}</TableCell>
             </TableRow>
-          ))}
+          ))} */}
         </TableBody>
       </Table>
     </TableContainer>

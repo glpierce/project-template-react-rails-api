@@ -1,19 +1,13 @@
 class PropertiesController < ApplicationController
 
-    rescue_from ActiveRecord::RecordInvalid, with: :render_422
-
     def show 
         selected_property = Property.find_by(id: params[:id])
-        if selected_property
-            render json: selected_property
-        else
-            render json: { error: "Property not found" }, status: :not_found
-        end
+        render json: selected_property, status: 200
     end
 
     def create
         new_property = Property.create!(property_params)
-        render json: new_property, status: :created
+        render json: new_property, status: 201
     end
 
     private
