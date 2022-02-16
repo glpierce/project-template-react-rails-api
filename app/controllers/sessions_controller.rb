@@ -4,11 +4,11 @@ class SessionsController < ApplicationController
     def create
        if (Owner.find_by(email: params[:email]))
             owner = Owner.find_by(email: params[:email]
-            session[:owner_id] = user.id
+            session[:owner_id] = owner.id
             render json: owner
         elsif (Provider.find_by(email: params[:email])
             provider = Provider.find_by(email: params[:email]
-            session[:provider_id] = user.id
+            session[:provider_id] = provider.id
             render json: provider
        end
     end
