@@ -34,7 +34,11 @@ function Login({ user, setUser }) {
             if (r.ok) {
                 r.json().then((userResp) => loginSuccess(userResp));
             } else {
-                r.json().then((err) => setErrors(err.errors));
+                r.json().then((err) => {
+                    setErrors(err.errors)
+                    setEmail("")
+                    setPassword("")
+                });
             }
         });
     }
