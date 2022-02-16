@@ -13,8 +13,7 @@ class ProvidersController < ApplicationController
     end
 
     def show
-        provider = Provider.find_by(id: session[:provider_id])
-        render json: provider, status: 200
+        render json: @current_user
     end
 
     private
