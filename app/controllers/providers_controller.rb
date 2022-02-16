@@ -1,5 +1,5 @@
 class ProvidersController < ApplicationController
-    # skip_before_action :authorize, only: [:create]
+    skip_before_action :authorize, only: [:create]
 
     def create
         new_provider = Provider.create!(provider_params)
