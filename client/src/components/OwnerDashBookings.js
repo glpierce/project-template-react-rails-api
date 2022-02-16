@@ -11,7 +11,7 @@ function OwnerDashBookings({ user, setUser }) {
     const [bookings, setBookings] = useState([]);
 
     useEffect(() => {
-        fetch("/bookings/${user.id}")
+        fetch("/properties/${user.id}/bookings")
         .then(res => res.json())
         .then(bookingsData => setBookings(bookingsData))
     }, [])

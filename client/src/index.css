@@ -18,12 +18,10 @@ code {
 }
 
 #owner-dash-list {
-  margin-top: 20%;
   float: left;
 }
 
 #owner-dash-table {
-  margin-top: 20%;
-  float: right;
-  margin-right: 35%;
+  clear: both;
+  margin: 10% 15% 0 15%;
 }

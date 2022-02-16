@@ -31,7 +31,7 @@ function Login({ onLogin }) {
     }
 
     return (
-        <div id="login">
+        <div>
             <form onSubmit={handleSubmit}>
                 <Box
                     component="form"

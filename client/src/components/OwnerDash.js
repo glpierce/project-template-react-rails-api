@@ -10,9 +10,11 @@ function OwnerDash({ user, setUser }) {
 
     function handleListClick(e, target) {
         if (target == 'properties') {
-            setTableToggle(!tableToggle)
+            setTableToggle(true)
+            setBookingsToggle(false)
         } else if (target == 'bookings') {
-            setBookingsToggle(!bookingsToggle) 
+            setBookingsToggle(true)
+            setTableToggle(false)
         }
     }
 
