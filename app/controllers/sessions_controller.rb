@@ -10,7 +10,9 @@ class SessionsController < ApplicationController
             provider = Provider.find_by(email: params[:email])
             session[:provider_id] = provider.id
             render json: provider
-       end
+        else
+            render json: {errors: "Invalid email or password"}, status: 401
+        end
     end
 
     def destroy
