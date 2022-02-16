@@ -50,14 +50,15 @@ function SignupTabs() {
 
   useEffect(() => {
     // auto-login
-      fetch("/owners/me").then((r) => {
+      fetch(ownerToggle ? "/owners/me" : "/providers/me").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
+        console.log(user)
       }
     });
   }, []);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (e, newValue) => {
     setValue(newValue);
   };
 
@@ -81,14 +82,8 @@ function SignupTabs() {
           <br />
           { ownerToggle ? <OwnerSignup setUser={setUser}/> : null }
           { !ownerToggle ?
-            <Button 
-              variant="contained"
-              color="primary"
-              value='owner'
-              onClick={handleClick}
-            >
-            Get Started
-          </Button> : null }
+            <Button variant="contained" color="primary" value='owner' onClick={handleClick}>
+            Get Started</Button> : null }
         </TabPanel>
         <TabPanel value={value} index={1}>
           <div>Get connected with property owners in your area.</div>

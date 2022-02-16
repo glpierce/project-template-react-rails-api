@@ -6,25 +6,30 @@ import Box from '@mui/material/Box';
 
 function ProviderSignup({setUser}) {
   const [providerName, setProviderName] = useState("")
+  const [location, setLocation] = useState("")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/signup", {
+    fetch("/providers", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        providerName,
+        name: providerName,
         email,
+        location,
         password,
         password_confirmation: passwordConfirmation,
       }),
-    })
-      .then((r) => r.json())
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
   }
   return (
     <div>
@@ -48,6 +53,13 @@ function ProviderSignup({setUser}) {
           label="E-mail"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+<TextField
+          required
+          id="provider-location"
+          label="Location"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
         />
 <TextField
           required

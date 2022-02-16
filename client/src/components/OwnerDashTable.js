@@ -7,7 +7,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function OwnerDashTable() {
+function OwnerDashTable({ user, setUser }) {
     const [properties, setProperties] = useState([]);
 
     useEffect(() => {
@@ -29,7 +29,7 @@ function OwnerDashTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {properties.map((property) => (
+          {/* {properties.map((property) => (
             <TableRow
               key={property.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -42,7 +42,7 @@ function OwnerDashTable() {
               <TableCell align="right">{property.tasks}</TableCell>
               <TableCell align="right">{property.bookings}</TableCell>
             </TableRow>
-          ))}
+          ))} */}
         </TableBody>
       </Table>
     </TableContainer>
