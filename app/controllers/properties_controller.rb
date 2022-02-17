@@ -10,6 +10,12 @@ class PropertiesController < ApplicationController
         render json: new_property, status: 201
     end
 
+    def destroy
+        selected_property = Property.find_by(id: params[:id])
+        selected_property.destroy
+        head :no_content
+    end
+
     private
 
     def property_params
