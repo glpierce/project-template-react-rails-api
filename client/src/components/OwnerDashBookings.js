@@ -11,9 +11,9 @@ function OwnerDashBookings({ user, setUser }) {
     const [bookings, setBookings] = useState([]);
 
     useEffect(() => {
-        fetch("/properties/${user.id}/bookings")
+        fetch("/me")
         .then(res => res.json())
-        .then(bookingsData => setBookings(bookingsData))
+        .then(bookingsData => console.log('Bookings: ', bookingsData.properties))
     }, [])
 
   return (
@@ -30,7 +30,7 @@ function OwnerDashBookings({ user, setUser }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {bookings.map((booking) => (
+          {bookings.map((booking) => (
             <TableRow
               key={booking.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -42,7 +42,7 @@ function OwnerDashBookings({ user, setUser }) {
               <TableCell align="right">{booking.provider}</TableCell>
               <TableCell align="right">{booking.price}</TableCell>
             </TableRow>
-          ))} */}
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

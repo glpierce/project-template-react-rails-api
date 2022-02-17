@@ -14,13 +14,12 @@ function OwnerDashTable({ user, setUser }) {
     console.log('Before click: ', properties)
     
     useEffect(() => {
-      fetch("/owners/me")
+      fetch("/me")
       .then(res => res.json())
       .then(propertyData => setProperties(propertyData.properties))
     }, [])
 
     function handleClick(e, id) {
-      console.log('clicked', id)
       fetch(`/properties/${id}`, {
         method: "DELETE"
       })
