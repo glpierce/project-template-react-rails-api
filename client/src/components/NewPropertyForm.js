@@ -38,6 +38,8 @@ function NewPropertyForm({user}) {
 
   return (
     <div>
+      <br/>
+      <br/>
       NewPropertyForm
       <Box
         component="form"
