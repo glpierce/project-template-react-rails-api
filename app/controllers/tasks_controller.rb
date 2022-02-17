@@ -5,6 +5,11 @@ class TasksController < ApplicationController
         render json: task, status: 201
     end
 
+    def show 
+        task = Task.find(params[:id])
+        render json: task, status: 200
+    end
+
     def update
         task = find_task
         task.update!(task_params)

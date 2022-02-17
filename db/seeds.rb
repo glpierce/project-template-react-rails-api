@@ -41,21 +41,21 @@ p4 = Property.create!(  address: "11 Wall St, New York, NY 10005 USA",
 puts "Seeding tasks..."
 t1 = Task.create!(  task_name: "Landscape",
                     frequency: 60,
-                    last_completed: 01/22/2022,
+                    last_completed: DateTime.new(2022, 1, 26, 1, 5),
                     status: "upcoming",
                     property_id: p1.id)
 t2 = Task.create!(  task_name: "Clean Gutters",
                     frequency: 90,
-                    last_completed: 01/22/2021,
+                    last_completed: DateTime.new(2021, 2, 26, 1, 5),
                     status: "past due",
                     property_id: p2.id)
 
 puts "Seeding bookings..."
-b1 = Booking.create!(  date: 02/28/2022,
+b1 = Booking.create!(  date: DateTime.new(2022, 2, 26, 1, 5),
                        price: 300,
                        provider_id: r1.id,
                        task_id: t1.id)
-b2 = Booking.create!(  date: 03/28/2022,
+b2 = Booking.create!(  date: DateTime.new(2022, 3, 26, 1, 5),
                        price: 128.65,
                        provider_id: r2.id,
                        task_id: t2.id)
