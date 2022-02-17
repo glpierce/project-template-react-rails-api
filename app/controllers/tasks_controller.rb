@@ -7,7 +7,7 @@ class TasksController < ApplicationController
 
     def show 
         task = Task.find(params[:id])
-        render json: task, include: {:bookings}, status: 200
+        render json: task, status: 200
     end
 
     def update

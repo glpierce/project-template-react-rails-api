@@ -3,7 +3,7 @@ class OwnersController < ApplicationController
 
     def show 
         owner = Owner.find(params[:id])
-        render json: owner, status: 200
+        render json: owner, include: ['properties', 'properties.tasks', 'tasks.bookings'], status: 200
     end
 
     def create
@@ -15,11 +15,6 @@ class OwnersController < ApplicationController
     def destroy
         owner = Owner.find(params[:id])
         owner.destroy
-    end
-
-    def show
-       owner = Owner.find(params[:id])
-       render json: owner 
     end
 
     private
