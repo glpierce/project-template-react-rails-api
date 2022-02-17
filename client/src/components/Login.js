@@ -14,7 +14,6 @@ function Login({ user, setUser }) {
     const history = useHistory();
 
     function loginSuccess(userResp) {
-        console.log(userResp)
         setUser(userResp)
         history.push(userResp.account_type == "owner" ? "/owner" : "/provider")
     }

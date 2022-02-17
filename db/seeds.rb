@@ -39,5 +39,25 @@ p4 = Property.create!(  address: "11 Wall St, New York, NY 10005 USA",
                         owner_id: o2.id)
 
 puts "Seeding tasks..."
+t1 = Task.create!(  task_name: "Landscape",
+                    frequency: 60,
+                    last_completed: 01/22/2022,
+                    status: "upcoming",
+                    property_id: p1.id)
+t2 = Task.create!(  task_name: "Clean Gutters",
+                    frequency: 90,
+                    last_completed: 01/22/2021,
+                    status: "past due",
+                    property_id: p2.id)
+
+puts "Seeding bookings..."
+b1 = Booking.create!(  date: 02/28/2022,
+                       price: 300,
+                       provider_id: p1.id,
+                       task_id: t1.id)
+b2 = Booking.create!(  date: 03/28/2022,
+                       price: 128.65,
+                       provider_id: p2.id,
+                       task_id: t2.id)
 
 puts "Seeding Completed!"

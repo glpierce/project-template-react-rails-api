@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :provider_services
     
     resources :tasks, only: [:create, :update, :destroy]
-    resources :bookings, only: [:create]
+    resources :bookings, only: [:create, :show]
     resources :owners, only: [:create, :show, :destroy]
     resources :providers, only: [:create, :show, :index, :destroy]
     resources :properties, only: [:create, :show, :destroy]
