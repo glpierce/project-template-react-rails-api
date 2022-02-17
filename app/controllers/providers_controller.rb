@@ -13,7 +13,11 @@ class ProvidersController < ApplicationController
     end
 
     def show
-        render json: @current_user
+        render json: Provider.find(params[:id])
+    end
+
+    def index
+        render json: Provider.all
     end
 
     private

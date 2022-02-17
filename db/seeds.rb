@@ -13,7 +13,9 @@ o2 = Owner.create!(first_name: "Test User 2", last_name: "", email: "testuser2@g
 
 puts "Seeding providers..."
 
-Provider.create!(name: 'Bob\'s Bush Brushers', email: 'bobsbrushers@gmail.com', location: 'miami', account_type: 'provider', password_digest: 'password')
+Provider.create!(name: 'Bob\'s Bush Brushing', email: 'bobsbrushing@gmail.com', location: 'miami', account_type: 'provider', password_digest: 'password')
+Provider.create!(name: 'Paul\'s Pipe Polishing', email: 'paulspolishing@gmail.com', location: 'houston', account_type: 'provider', password_digest: 'password')
+Provider.create!(name: 'Jim\'s Junk Removal', email: 'jimsremoval@gmail.com', location: 'seattle', account_type: 'provider', password_digest: 'password')
 
 puts "Seeding properties..."
 p1 = Property.create!(  address: "141 Buena Vista Ave E, San Francisco, CA 94117 USA",

@@ -12,10 +12,6 @@ class OwnersController < ApplicationController
         owner.destroy
     end
 
-    def show
-        render json: @current_user
-    end
-
     private
 
     def owner_params

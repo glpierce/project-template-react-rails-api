@@ -15,6 +15,10 @@ class SessionsController < ApplicationController
         end
     end
 
+    def show
+        render json: @current_user
+    end
+
     def destroy
         session.delete { :owner_id ? :owner_id : :provider_id }
         head :no_content
