@@ -13,16 +13,16 @@ o2 = Owner.create!(first_name: "Test User 2", last_name: "", email: "testuser2@g
 
 puts "Seeding providers..."
 
-r1 = Provider.create!(name: 'Bob\'s Bush Brushing', email: 'bobsbrushing@gmail.com', location: 'miami', account_type: 'provider', password_digest: 'password')
-r2 = Provider.create!(name: 'Paul\'s Pipe Polishing', email: 'paulspolishing@gmail.com', location: 'houston', account_type: 'provider', password_digest: 'password')
-r3 = Provider.create!(name: 'Jim\'s Junk Removal', email: 'jimsremoval@gmail.com', location: 'seattle', account_type: 'provider', password_digest: 'password')
+r1= Provider.create!(name: 'Bob\'s Bush Brushing', email: 'bobsbrushing@gmail.com', location: 'miami', account_type: 'provider', password: 'password')
+r2 = Provider.create!(name: 'Paul\'s Pipe Polishing', email: 'paulspolishing@gmail.com', location: 'houston', account_type: 'provider', password: 'password')
+r3 = Provider.create!(name: 'Jim\'s Junk Removal', email: 'jimsremoval@gmail.com', location: 'seattle', account_type: 'provider', password: 'password')
 
 puts "Seeding properties..."
 p1 = Property.create!(  address: "141 Buena Vista Ave E, San Francisco, CA 94117 USA",
                         city: "San Francisco, CA",
                         owner_occupied: true,
                         owner_id: o1.id)
-
+                        
 p2 = Property.create!(  address: "1600 Pennsylvania Ave NW, Washington, DC 20500 USA",
                         city: "Washington, DC",
                         owner_occupied: false,
