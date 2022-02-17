@@ -4,12 +4,20 @@ class SessionsController < ApplicationController
     def create
        if (Owner.find_by(email: params[:email]))
             owner = Owner.find_by(email: params[:email])
-            session[:owner_id] = owner.id
-            render json: owner
+            if (params[:password] == owner.password_digest)
+                session[:owner_id] = owner.id
+                render json: owner
+            else
+                render json: {errors: "Invalid email or password"}, status: 401
+            end
         elsif (Provider.find_by(email: params[:email]))
             provider = Provider.find_by(email: params[:email])
-            session[:provider_id] = provider.id
-            render json: provider
+            if (params[:password] == provider.password_digest)
+                session[:provider_id] = provider.id
+                render json: provider
+            else
+                render json: {errors: "Invalid email or password"}, status: 401
+            end
         else
             render json: {errors: "Invalid email or password"}, status: 401
         end
@@ -20,7 +28,7 @@ class SessionsController < ApplicationController
     end
 
     def destroy
-        session.delete { :owner_id ? :owner_id : :provider_id }
+        session.delete (params[:owner] ? :owner_id : :provider_id)
         head :no_content
     end
 

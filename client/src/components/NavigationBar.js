@@ -36,8 +36,24 @@ function NavigationBar({ user, setUser}) {
     const classes = useStyles();
 
     function logOut() {
+      const ownerBool = (user.account_type === "owner" ? true : false)
+      fetch("/logout", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({owner: ownerBool})
+      })
+      .then((r) => {
+        if (r.ok) {
+          setUser({})
+        }
+      })
+    }
+
+    function logOutElement() {
       return(
-        <Link to="/" className={classes.link}>
+        <Link to="/" onClick={logOut} className={classes.link}>
           Log Out
         </Link>
       )
@@ -51,7 +67,7 @@ function NavigationBar({ user, setUser}) {
             <Typography variant="h4" className={classes.logo}>
               HouseStuff
             </Typography>
-            {!!Object.keys(user).length ? logOut() : <></>}
+            {!!Object.keys(user).length ? logOutElement() : <></>}
           </Toolbar>
         </AppBar>
       </div>

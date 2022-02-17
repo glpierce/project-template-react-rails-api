@@ -11,14 +11,14 @@ import '@fontsource/roboto/400.css';
 function App() {
   const [user, setUser] = useState({})
 
-  // useEffect(() => {
-  //   // auto-login
-  //   fetch("/me").then((r) => {
-  //     if (r.ok) {
-  //       r.json().then((user) => setUser(user));
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    // auto-login
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
 
   return (
     <div className="App">
@@ -34,7 +34,7 @@ function App() {
         </Route>
       
         <Route path={"/"}>
-          <HomeScreen user={user} setUser={setUser}  />
+          <HomeScreen user={user} setUser={setUser} />
         </Route>
 
       </Switch>

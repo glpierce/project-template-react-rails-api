@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,13 +10,18 @@ import Button from '@mui/material/Button';
 
 function OwnerDashTable({ user, setUser }) {
   const [properties, setProperties] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false)
 
     console.log('Before click: ', properties)
     
     useEffect(() => {
-      fetch("/owners/me")
+      //setIsLoaded(false)
+      fetch("/me")
       .then(res => res.json())
-      .then(propertyData => setProperties(propertyData.properties))
+      .then(propertyData => {
+        setProperties(propertyData.properties)
+        setIsLoaded(true)
+      })
     }, [])
 
     function handleClick(e, id) {
@@ -27,6 +32,34 @@ function OwnerDashTable({ user, setUser }) {
       const updatedProperties = properties.filter(p => p.id !== id)
       setProperties([...updatedProperties])
       console.log('success')
+    }
+
+    function renderPropertiesTable() {
+      if (!!properties.length) {
+        const propertiesRows = properties.map((property) => (
+          <TableRow
+            key={property.id}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            <TableCell component="th" scope="row">
+              {property.id}
+            </TableCell>
+            <TableCell align="left">{property.address}</TableCell>
+            <TableCell align="left">{property.tasks ? property.tasks.length : 0}</TableCell>
+            <TableCell align="left">{property.bookings ? property.bookings.length : 0}</TableCell>
+            <Button
+              variant="contained" 
+              value='pro'
+              onClick={(e) => handleClick(e, property.id)}
+            >
+              Delete
+            </Button>
+          </TableRow>
+        ))
+        return(propertiesRows)
+      } else {
+        return(<p>No properties yet...</p>)
+      }
     }
     
   return (
@@ -41,26 +74,7 @@ function OwnerDashTable({ user, setUser }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {properties.map((property) => (
-            <TableRow
-              key={property.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {property.id}
-              </TableCell>
-              <TableCell align="left">{property.address}</TableCell>
-              <TableCell align="left">{property.tasks ? property.tasks.length : 0}</TableCell>
-              <TableCell align="left">{property.bookings ? property.bookings.length : 0}</TableCell>
-              <Button
-                variant="contained" 
-                value='pro'
-                onClick={(e) => handleClick(e, property.id)}
-              >
-                Delete
-              </Button>
-            </TableRow>
-          ))}
+          {isLoaded ? renderPropertiesTable() : <p>Properties loading...</p>}
         </TableBody>
       </Table>
     </TableContainer>
