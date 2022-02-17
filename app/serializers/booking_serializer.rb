@@ -1,5 +1,5 @@
 class BookingSerializer < ActiveModel::Serializer
-  attributes :date, :price, :provider_id
-  belongs_to :property
-  belongs_to :provider
+  attributes :date, :price, :provider_id, :property_id
+  has_one :task
+  has_one :provider
 end

@@ -1,7 +1,7 @@
 class PropertiesController < ApplicationController
 
     def show 
-        selected_property = Property.find_by(id: params[:id])
+        selected_property = Property.find(params[:id])
         render json: selected_property, status: 200
     end
 
@@ -11,7 +11,7 @@ class PropertiesController < ApplicationController
     end
 
     def destroy
-        selected_property = Property.find_by(id: params[:id])
+        selected_property = Property.find(params[:id])
         selected_property.destroy
         head :no_content
     end
