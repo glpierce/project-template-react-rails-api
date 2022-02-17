@@ -10,8 +10,6 @@ import Button from '@mui/material/Button';
 
 function OwnerDashTable({ user, setUser }) {
   const [properties, setProperties] = useState([]);
-
-    console.log('Before click: ', properties)
     
     useEffect(() => {
       fetch("/me")

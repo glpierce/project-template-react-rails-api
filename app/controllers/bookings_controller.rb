@@ -5,6 +5,11 @@ class BookingsController < ApplicationController
         render json: new_booking, status: :created
     end
 
+    def show 
+        selected_booking = Booking.find(params[:id])
+        render json: selected_booking, status: 200
+    end
+
     private
 
     def booking_params
