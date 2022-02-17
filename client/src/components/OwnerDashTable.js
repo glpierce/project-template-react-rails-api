@@ -24,26 +24,24 @@ function OwnerDashTable({ user, setUser }) {
         <TableHead>
           <TableRow>
             <TableCell>Property</TableCell>
-            <TableCell align="right">Name</TableCell>
-            <TableCell align="right">Address</TableCell>
-            <TableCell align="right"># Tasks</TableCell>
-            <TableCell align="right"># Bookings</TableCell>
+            <TableCell align="left">Address</TableCell>
+            <TableCell align="left"># Tasks</TableCell>
+            <TableCell align="left"># Bookings</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {properties.map((property) => (console.log('Property: ', property)
-            // <TableRow
-            //   key={property.name}
-            //   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            // >
-            //   <TableCell component="th" scope="row">
-            //     {property.name}
-            //   </TableCell>
-            //   <TableCell align="right">{property.name}</TableCell>
-            //   <TableCell align="right">{property.address}</TableCell>
-            //   <TableCell align="right">{property.tasks.length}</TableCell>
-            //   <TableCell align="right">{property.bookings.length}</TableCell>
-            // </TableRow>
+          {properties.map((property) => (
+            <TableRow
+              key={property.id}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {property.id}
+              </TableCell>
+              <TableCell align="left">{property.address}</TableCell>
+              <TableCell align="left">{property.tasks ? property.tasks.length : 0}</TableCell>
+              <TableCell align="left">{property.bookings ? property.bookings.length : 0}</TableCell>
+            </TableRow>
           ))}
         </TableBody>
       </Table>
