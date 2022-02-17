@@ -11,6 +11,7 @@ function OwnerSignup({setUser}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(true)
   const history = useHistory();
 
 
@@ -22,28 +23,33 @@ function OwnerSignup({setUser}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/owners", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
-        email,
-        password,
-        password_confirmation: passwordConfirmation,
-      }),
-    })
-    .then((r) => {
-      // setIsLoading(false);
-      if (r.ok) {
-          r.json().then((userResp) => loginSuccess(userResp));
-      } else {
-          r.json().then((err) => console.log(err.errors));
-      }
-  });
-}
+    if (password === passwordConfirmation) {
+      fetch("/owners", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          password: password,
+        }),
+      })
+      .then((r) => {
+        // setIsLoading(false);
+        if (r.ok) {
+            r.json().then((userResp) => loginSuccess(userResp));
+        } else {
+            r.json().then((err) => console.log(err.errors));
+        }
+      });
+    } else {
+      setPasswordMatch(false)
+      setPassword("")
+      setPasswordConfirmation("")
+    }
+  }
 
   return (
     <div>
@@ -90,6 +96,7 @@ function OwnerSignup({setUser}) {
                   onChange={(e) => setPasswordConfirmation(e.target.value)}
                 />
                 <br />
+        {passwordMatch ? <></> : <p>Passwords must match</p>}
         <Button variant="outlined" onClick={handleSubmit}>Sign Up!</Button>
         </FormControl>
         </Box>

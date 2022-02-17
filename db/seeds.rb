@@ -8,8 +8,8 @@
 
 
 puts "Seeding owners..."
-o1 = Owner.create!(first_name: "Test User 1", last_name: "", email: "testuser1@gmail.com", password_digest: "password123", account_type: "owner")
-o2 = Owner.create!(first_name: "Test User 2", last_name: "", email: "testuser2@gmail.com", password_digest: "password123", account_type: "owner")
+o1 = Owner.create!(first_name: "Test User 1", last_name: "", email: "testuser1@gmail.com", password: "password123", account_type: "owner")
+o2 = Owner.create!(first_name: "Test User 2", last_name: "", email: "testuser2@gmail.com", password: "password123", account_type: "owner")
 
 puts "Seeding providers..."
 
