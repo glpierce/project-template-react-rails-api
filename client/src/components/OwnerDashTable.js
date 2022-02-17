@@ -11,8 +11,6 @@ import Button from '@mui/material/Button';
 function OwnerDashTable({ user, setUser }) {
   const [properties, setProperties] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false)
-
-    console.log('Before click: ', properties)
     
     useEffect(() => {
       //setIsLoaded(false)
