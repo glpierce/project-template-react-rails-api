@@ -26,10 +26,10 @@ function OwnerDash({ user, setUser }) {
             </div>
             <div id='owner-dash-table'>
                { tableToggle ?  
-                <OwnerDashTable user={user} setUser={setUser} /> : 
+                <OwnerDashTable user={user} setUser={setUser} />  : 
                 <OwnerDashBookings user={user} setUser={setUser} /> }
-                <NewPropertyForm user={user}/>
             </div>
+            { tableToggle ? <NewPropertyForm user={user}/> : null}
         </div>
     )
 }
