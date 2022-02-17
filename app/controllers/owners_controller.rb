@@ -1,6 +1,11 @@
 class OwnersController < ApplicationController
     skip_before_action :authorize, only: [:create]
 
+    def show 
+        owner = Owner.find(params[:id])
+        render json: owner, status: 200
+    end
+
     def create
         new_owner = Owner.create!(owner_params)
         session[:owner_id] = new_owner.id
