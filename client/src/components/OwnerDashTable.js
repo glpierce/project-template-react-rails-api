@@ -6,17 +6,28 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 function OwnerDashTable({ user, setUser }) {
     const [properties, setProperties] = useState([]);
 
-    console.log(properties)
+    console.log('Before click: ', properties)
     
     useEffect(() => {
       fetch("/owners/me")
       .then(res => res.json())
       .then(propertyData => setProperties(propertyData.properties))
     }, [])
+
+    function handleClick(e, id) {
+      console.log('clicked', id)
+      fetch(`/properties/${id}`, {
+        method: "DELETE"
+      })
+      const updatedProperties = properties.filter(p => p.id !== id)
+      setProperties([...updatedProperties])
+      console.log('success')
+    }
     
   return (
     <TableContainer component={Paper}>
@@ -41,6 +52,13 @@ function OwnerDashTable({ user, setUser }) {
               <TableCell align="left">{property.address}</TableCell>
               <TableCell align="left">{property.tasks ? property.tasks.length : 0}</TableCell>
               <TableCell align="left">{property.bookings ? property.bookings.length : 0}</TableCell>
+              <Button
+                variant="contained" 
+                value='pro'
+                onClick={(e) => handleClick(e, property.id)}
+              >
+                Delete
+              </Button>
             </TableRow>
           ))}
         </TableBody>
