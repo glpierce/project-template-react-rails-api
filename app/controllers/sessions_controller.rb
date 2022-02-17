@@ -4,23 +4,38 @@ class SessionsController < ApplicationController
     def create
        if (Owner.find_by(email: params[:email]))
             owner = Owner.find_by(email: params[:email])
-            if (params[:password] == owner.password_digest)
+            if owner&.authenticate(params[:password])
                 session[:owner_id] = owner.id
-                render json: owner
+                render json: owner, status: :created
+                # session[:owner_id] = owner.id
+                # render json: owner
             else
                 render json: {errors: "Invalid email or password"}, status: 401
             end
         elsif (Provider.find_by(email: params[:email]))
             provider = Provider.find_by(email: params[:email])
-            if (params[:password] == provider.password_digest)
+            if provider&.authenticate(params[:password])
                 session[:provider_id] = provider.id
-                render json: provider
+                render json: provider, status: :created
+                # session[:owner_id] = owner.id
+                # render json: owner
             else
                 render json: {errors: "Invalid email or password"}, status: 401
             end
         else
             render json: {errors: "Invalid email or password"}, status: 401
         end
+    #     elsif (Provider.find_by(email: params[:email]))
+    #         provider = Provider.find_by(email: params[:email])
+    #         if (params[:password] == provider.password_digest)
+    #             session[:provider_id] = provider.id
+    #             render json: provider
+    #         else
+    #             render json: {errors: "Invalid email or password"}, status: 401
+    #         end
+    #     else
+    #         render json: {errors: "Invalid email or password"}, status: 401
+    #     end
     end
 
     def show

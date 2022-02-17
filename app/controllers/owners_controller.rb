@@ -17,6 +17,11 @@ class OwnersController < ApplicationController
         owner.destroy
     end
 
+    def show
+       owner = Owner.find(params[:id])
+       render json: owner 
+    end
+
     private
 
     def owner_params

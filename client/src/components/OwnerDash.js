@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import OwnerDashList from './OwnerDashList';
 import OwnerDashTable from './OwnerDashTable';
 import OwnerDashBookings from "./OwnerDashBookings";
+import NewPropertyForm from "./NewPropertyForm";
 
 function OwnerDash({ user, setUser }) {
     const [tableToggle, setTableToggle] = useState(true)
@@ -27,6 +28,7 @@ function OwnerDash({ user, setUser }) {
                { tableToggle ?  
                 <OwnerDashTable user={user} setUser={setUser} /> : 
                 <OwnerDashBookings user={user} setUser={setUser} /> }
+                <NewPropertyForm user={user}/>
             </div>
         </div>
     )

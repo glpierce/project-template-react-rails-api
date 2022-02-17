@@ -7,6 +7,7 @@ import ProviderDash from "./components/ProviderDash"
 import { Switch, Route } from "react-router-dom";
 
 import '@fontsource/roboto/400.css';
+import NewPropertyForm from "./components/NewPropertyForm";
 
 function App() {
   const [user, setUser] = useState({})
@@ -32,6 +33,7 @@ function App() {
         <Route path={"/owner"}>
           <OwnerDash user={user} setUser={setUser} />
         </Route>
+       
       
         <Route path={"/"}>
           <HomeScreen user={user} setUser={setUser} />
