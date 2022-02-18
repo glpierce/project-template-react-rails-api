@@ -17,7 +17,6 @@ function NewPropertyForm({user}) {
   const [ownerOccupied, setOwnerOccupied] = useState(false);
   const [formToggle, setFormToggle] = useState(false)
   const history = useHistory();
-  
 
   function handleSubmit(e) {
     e.preventDefault();

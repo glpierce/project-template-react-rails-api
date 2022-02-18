@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
+import { useParams, useHistory } from "react-router-dom"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,6 +13,7 @@ import Moment from 'moment'
 function PropertyDash() {
     const [property, setProperty] = useState({})
     const { id } = useParams()
+    const history = useHistory()
 
     useEffect(() => {
         getProperty()
@@ -24,27 +25,31 @@ function PropertyDash() {
         .then(propertyData => setProperty(propertyData))
     }
 
-    function bookingDate(bookings) {
+    function bookingDate(bookings, taskId) {
         const newestBookingDate = bookings.reduce((priorBooking, booking) => (priorBooking.date > booking.date ? priorBooking : booking)).date
         if (!!bookings.length && (new Date(newestBookingDate) >= new Date())) {
             return(Moment(newestBookingDate).format('MM/DD/YYYY'))
         } else {
-            return(
-                <Button
-                    variant="contained" 
-                    value='pro'
-                    id={property.id}
-                    //onClick={} //add onclick
-                >
-                    Book Service
-                </Button>
-            )
+            return(renderBookButton(taskId))
         }
+    }
+
+    function renderBookButton(taskId) {
+        return(
+            <Button
+                variant="contained" 
+                value='pro'
+                id={property.id}
+                onClick={(e) => history.push(`/owner/property/${property.id}/book/${taskId}`)}
+            >
+                Book Service
+            </Button>
+        )
     }
 
     function renderTaskTable() {
         if (!!property.tasks.length) {
-            const propertiesRows = property.tasks.map((task) => (
+            return(property.tasks.map((task) => (
               <TableRow
                 key={task.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -53,7 +58,7 @@ function PropertyDash() {
                 <TableCell align="left">{Moment(task.last_completed).format('MM/DD/YYYY')}</TableCell>
                 <TableCell align="left">{`Every ${task.frequency} days`}</TableCell>
                 <TableCell align="left">{task.status}</TableCell>
-                <TableCell align="left">{bookingDate(task.bookings)}</TableCell>
+                <TableCell align="left">{!!task.bookings.length ? bookingDate(task.bookings, task.id) : renderBookButton(task.id)}</TableCell>
                 <TableCell align="left">
                 <Button
                   variant="contained" 
@@ -64,14 +69,15 @@ function PropertyDash() {
                 </Button>
                 </TableCell>
               </TableRow>
-            ))
-            return(propertiesRows)
-          } else {
+            )))
+        } else {
             return(<p>No tasks yet...</p>)
-          }
+        }
     }
 
     return(
+        <>
+        <h2>{property.address}</h2>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -80,7 +86,7 @@ function PropertyDash() {
                         <TableCell align="left">Last Service</TableCell>
                         <TableCell align="left">Frequency</TableCell>
                         <TableCell align="left">Status</TableCell>
-                        <TableCell align="left">Booking</TableCell>
+                        <TableCell align="left">Upcoming Booking</TableCell>
                         <TableCell align="left"></TableCell>
                     </TableRow>
                 </TableHead>
@@ -89,6 +95,7 @@ function PropertyDash() {
                 </TableBody>
             </Table>
         </TableContainer>
+        </>
     )
 }
 
