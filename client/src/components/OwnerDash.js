@@ -3,10 +3,12 @@ import OwnerDashList from './OwnerDashList';
 import OwnerDashTable from './OwnerDashTable';
 import OwnerDashBookings from "./OwnerDashBookings";
 import NewPropertyForm from "./NewPropertyForm";
+import TasksForm from "./TaskForm";
 
 function OwnerDash({ user, setUser }) {
     const [tableToggle, setTableToggle] = useState(true)
     const [bookingsToggle, setBookingsToggle] = useState(false)
+    const [formToggle, setFormToggle] = useState(true);
 
 
     function handleListClick(e, target) {
@@ -29,7 +31,9 @@ function OwnerDash({ user, setUser }) {
                 <OwnerDashTable user={user} setUser={setUser} />  : 
                 <OwnerDashBookings user={user} setUser={setUser} /> }
             </div>
-            { tableToggle ? <NewPropertyForm user={user}/> : null}
+            <div id='prop-tasks-forms'>
+                { formToggle ? <NewPropertyForm user={user} taskFormToggle={formToggle} setTaskFormToggle={setFormToggle} /> : <TasksForm user={user} />}
+            </div>
         </div>
     )
 }

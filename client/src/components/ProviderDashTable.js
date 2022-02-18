@@ -15,8 +15,6 @@ function ProviderDashTable({user}) {
     const [bookings, setBookings] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false)
     const history = useHistory()
-  
-      console.log('Before click: ', bookings)
       
       useEffect(() => {
         setIsLoaded(false)

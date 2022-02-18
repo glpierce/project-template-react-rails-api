@@ -1,5 +1,9 @@
 class PropertiesController < ApplicationController
 
+    def index
+        render json: Property.all
+    end
+
     def show 
         selected_property = Property.find(params[:id])
         render json: selected_property, include: ['tasks', 'tasks.bookings'], status: 200
