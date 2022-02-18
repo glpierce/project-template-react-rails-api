@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TasksForm from "./TaskForm";
 import {
   FormControl,
   TextField,
@@ -10,34 +11,59 @@ import {
 import Box from "@mui/material/Box";
 import { useHistory } from "react-router-dom";
 
-function NewPropertyForm({user}) {
+function NewPropertyForm({user, taskFormToggle, setTaskFormToggle}) {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [ownerOccupied, setOwnerOccupied] = useState(false);
+  const [formToggle, setFormToggle] = useState(false)
   const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
+    setTaskFormToggle(!taskFormToggle)
+
+    const newProperty = {
+      address: address,
+      city: city,
+      owner_occupied: ownerOccupied,
+      owner_id: user.id
+    }
+
     fetch("/properties", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        address: address,
-        city: city,
-        owner_occupied: ownerOccupied,
-        owner_id: user.id,
-      }),
-    }).then((r) => r.json())
-    history.push("/owner")
+      body: JSON.stringify(newProperty),
+    }).then((r) => {
+      if (r.ok) {
+          r.json().then((newProperty) => {
+            history.push("/owner")
+          });
+      } else {
+          r.json().then((err) => console.log(err.errors)); //finish error handling
+      }
+      setFormToggle(!formToggle)
+    });
+    resetFormData()
+    // if r.ok is true, set a state propertyForm - booloean, initialize to true, if true render property, otherwise task form.  
+    // Switch state to false and render form for the tasks, persist tasks, then route to history.push(/owner)
+  }
+
+  function resetFormData(){
+    setAddress("")
+    setCity("")
+    setOwnerOccupied(false)
   }
 
   return (
     <div>
       <br/>
       <br/>
-      NewPropertyForm
+      <br />
+      Add another property
+      <br />
+      <br />
       <Box
         component="form"
         sx={{
