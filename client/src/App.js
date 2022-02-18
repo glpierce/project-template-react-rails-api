@@ -6,6 +6,7 @@ import OwnerDash from "./components/OwnerDash";
 import ProviderDash from "./components/ProviderDash"
 import { Switch, Route } from "react-router-dom";
 import ProviderSearch from "./components/ProviderSearch";
+import PropertyDash from "./components/PropertyDash";
 
 import '@fontsource/roboto/400.css';
 import NewPropertyForm from "./components/NewPropertyForm";
@@ -26,12 +27,17 @@ function App() {
     <div className="App">
       <NavigationBar user={user} setUser={setUser} />
       <Switch>
-        <Route path={"/owner/findproviders"}>
-          <ProviderSearch />
-        </Route>
 
         <Route path={"/provider"}>
           <ProviderDash user={user} setUser={setUser} />
+        </Route>
+
+        <Route path={"/owner/property/:id"}>
+          <PropertyDash />
+        </Route>
+
+        <Route path={"/owner/findproviders"}>
+          <ProviderSearch />
         </Route>
 
         <Route path={"/owner"}>
