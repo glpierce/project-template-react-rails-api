@@ -3,8 +3,6 @@ import { useState } from 'react'
 import { FormControl, TextField, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useHistory } from "react-router-dom"
-import TouchRipple from '@material-ui/core/ButtonBase/TouchRipple';
-
 
 function OwnerSignup({setUser}) {
   const [firstName, setFirstName] = useState("")
@@ -81,54 +79,56 @@ function OwnerSignup({setUser}) {
 
   return (
     <div>
-        <Box
-              component="form"
-              sx={{
-                '& .MuiTextField-root': { m: 1, width: '25ch' },
-              }}
-            >
+      <Box
+        component="form"
+        sx={{
+          '& .MuiTextField-root': { m: 1, width: '25ch' },
+        }}
+      >
         <FormControl>
-        <TextField
-                  required
-                  id="first-name"
-                  label="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-        <TextField
-                  required
-                  id="last-name"
-                  label="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-        <TextField
-                  required
-                  id="owner-email"
-                  label="E-mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-        {emailInUse ? <p>There is already an account associated with this email</p> : <></>}
-        <TextField
-                  required
-                  id="owner-password"
-                  label="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-        <TextField
-                  required
-                  id="owner-confirm"
-                  label="Confirm Password"
-                  value={passwordConfirmation}
-                  onChange={(e) => setPasswordConfirmation(e.target.value)}
-                />
-                <br />
-        {passwordMatch ? <></> : <p>Passwords must match</p>}
-        <Button variant="outlined" onClick={handleSubmit}>Sign Up!</Button>
+          <TextField
+            required
+            id="first-name"
+            label="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+          <TextField
+            required
+            id="last-name"
+            label="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+          <TextField
+            required
+            id="owner-email"
+            label="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {emailInUse ? <p>There is already an account associated with this email</p> : <></>}
+          <TextField
+            required
+            id="owner-password"
+            label="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <TextField
+            required
+            id="owner-confirm"
+            label="Confirm Password"
+            type="password"
+            value={passwordConfirmation}
+            onChange={(e) => setPasswordConfirmation(e.target.value)}
+          />
+          {passwordMatch ? <></> : <p>Passwords must match</p>}
+          <br />
+          <Button variant="outlined" onClick={handleSubmit}>Sign Up!</Button>
         </FormControl>
-        </Box>
+      </Box>
     </div>
   )
 }
