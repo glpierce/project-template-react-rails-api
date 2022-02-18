@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
     end
 
     def show
-        render json: @current_user, include: ['properties', 'properties.tasks', 'tasks.bookings'], status: 200
+        render json: @current_user, include: ['properties', 'properties.tasks', 'tasks.bookings', 'bookings', 'bookings.task.property'], status: 200
     end
 
     def email
