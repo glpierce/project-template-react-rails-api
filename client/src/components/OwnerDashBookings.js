@@ -6,15 +6,30 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Moment from 'moment'
+import Button from '@mui/material/Button';
+
+
+
 
 function OwnerDashBookings({ user, setUser }) {
     const [data, setData] = useState([]);
+    const [bookings, setBookings] = useState([]);
+
 
     useEffect(() => {
         fetch("/me")
         .then(res => res.json())
         .then(propertyData => setData(propertyData.properties))
-      }, [])
+      }, [setBookings])
+
+      function handleClick(e, id) {
+        fetch(`/bookings/${id}`, {
+          method: "DELETE"
+        })
+        const updatedbookings = bookings.filter(p => p.id !== id)
+        setBookings([...updatedbookings])
+      }
 
       function renderBookings() {
         const bookingRows = [];
@@ -36,8 +51,13 @@ function OwnerDashBookings({ user, setUser }) {
           >
             <TableCell align="left">{r.address}</TableCell>
             <TableCell align="left">{r.task_name}</TableCell>
-            <TableCell align="left">{r.date}</TableCell>
-            <TableCell align="left">{r.price}</TableCell>
+            <TableCell align="left">{Moment(r.date).format("MM/DD/YYYY")}</TableCell>
+            <TableCell align="left">${r.price}</TableCell>
+            <Button
+                variant="contained" 
+                value='pro'
+                onClick={(e) => handleClick(e, r.id)}
+              >Cancel</Button>
           </TableRow>)
           })
         )

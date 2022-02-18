@@ -16,9 +16,6 @@ function NewPropertyForm({user}) {
   const [ownerOccupied, setOwnerOccupied] = useState(false);
   const history = useHistory();
 
-  console.log(user.id)
-  
-
   function handleSubmit(e) {
     e.preventDefault();
     fetch("/properties", {
