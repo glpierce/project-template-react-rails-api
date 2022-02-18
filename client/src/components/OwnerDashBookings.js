@@ -16,6 +16,33 @@ function OwnerDashBookings({ user, setUser }) {
         .then(propertyData => setData(propertyData.properties))
       }, [])
 
+      function renderBookings() {
+        const bookingRows = [];
+        data.forEach((p) => p.tasks.forEach((t, pindex, p) => t.bookings.forEach((b, tindex, bookings) => {
+          bookingRows.push({
+            // address: p[pindex].address,
+            task_name: bookings[tindex].task_name,
+            date: b.date,
+            price: b.price,
+            id: b.id
+          })
+        })))
+        console.log(bookingRows)
+        return (
+          bookingRows.map((r) => {
+            <TableRow
+            key={r.id}
+            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+          >
+            {/* <TableCell align="left">{r.address}</TableCell> */}
+            <TableCell align="left">{r.task_name}</TableCell>
+            <TableCell align="left">{r.date}</TableCell>
+            <TableCell align="left">{r.price}</TableCell>
+          </TableRow>
+          })
+        )
+      }
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -29,18 +56,7 @@ function OwnerDashBookings({ user, setUser }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((d) => (
-            <TableRow
-              key={d.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">{d.id} </TableCell>
-              <TableCell align="left">{d.address}</TableCell>
-              <TableCell align="left">{d.tasks.map((t) => t)}</TableCell>
-              {d.bookings.map((b) => <TableCell align="left">{b.date}</TableCell>)}
-              {d.bookings.map((b) => <TableCell align="left">{b.price}</TableCell>)}
-            </TableRow>
-          ))}
+          {!!data.length ? renderBookings() : <p>Bookings loading...</p>}
         </TableBody>
       </Table>
     </TableContainer>
