@@ -1,12 +1,12 @@
 class SessionsController < ApplicationController
-    skip_before_action :authorize, only: :create
+    skip_before_action :authorize, only: [:create, :email]
 
     def create
        if (Owner.find_by(email: params[:email]))
             owner = Owner.find_by(email: params[:email])
             if owner&.authenticate(params[:password])
                 session[:owner_id] = owner.id
-                render json: owner, status: :created
+                render json: owner,  status: :created
                 # session[:owner_id] = owner.id
                 # render json: owner
             else
@@ -39,7 +39,15 @@ class SessionsController < ApplicationController
     end
 
     def show
-        render json: @current_user, include: ['properties', 'properties.tasks', 'tasks.bookings']
+        render json: @current_user, include: ['properties', 'properties.tasks', 'tasks.bookings', 'bookings', 'bookings.task.property'], status: 200
+    end
+
+    def email
+        if (Owner.find_by(email: params[:email]) || Provider.find_by(email: params[:email]))
+            render json: {error: "email already exists"}, status: 401
+        else
+            head :no_content
+        end
     end
 
     def destroy

@@ -15,7 +15,7 @@ function OwnerDashTable({ user, setUser }) {
   const history = useHistory()
     
     useEffect(() => {
-      //setIsLoaded(false)
+      setIsLoaded(false)
       fetch("/me")
       .then(res => res.json())
       .then(propertyData => {
@@ -25,6 +25,7 @@ function OwnerDashTable({ user, setUser }) {
     }, [])
 
     function handleClick(e, id) {
+      console.log(id)
       fetch(`/properties/${id}`, {
         method: "DELETE"
       })

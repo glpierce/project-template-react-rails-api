@@ -23,6 +23,6 @@ class ProvidersController < ApplicationController
     private
 
     def provider_params
-        params.permit(:name, :email, :account_type, :password, :password_confirmation, :location).with_defaults(account_type: 'provider')
+        params.permit(:name, :email, :account_type, :password, :location).with_defaults(account_type: 'provider')
     end
 end

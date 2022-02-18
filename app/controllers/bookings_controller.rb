@@ -14,6 +14,11 @@ class BookingsController < ApplicationController
         bookings = Booking.all
         render json: bookings, status: 200
     end
+    def destroy
+        selected_property = Booking.find(params[:id])
+        selected_property.destroy
+        head :no_content
+    end
 
     private
 

@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function NavigationBar({ user, setUser}) {
-
+console.log(user)
     const classes = useStyles();
 
     function logOut() {
@@ -51,9 +51,22 @@ function NavigationBar({ user, setUser}) {
       })
     }
 
+    function userButtonElement(){
+      return(
+        user.account_type === 'owner' ?
+        <Link to="/owner" className={classes.link} style={{width: "10%"}} >
+          Welcome, {user.first_name} ! 
+        </Link> :
+        <Link to="/provider" className={classes.link} style={{width: "10%"}} >
+          Welcome, {user.name} !
+        </Link> 
+      
+        )
+    }
+
     function logOutElement() {
       return(
-        <Link to="/" onClick={logOut} className={classes.link}>
+        <Link to="/" onClick={logOut} className={classes.link} style={{paddingLeft: '40px'}} >
           Log Out
         </Link>
       )
@@ -67,6 +80,7 @@ function NavigationBar({ user, setUser}) {
             <Typography variant="h4" className={classes.logo}>
               HouseStuff
             </Typography>
+            {!!Object.keys(user).length ? userButtonElement() : <></>}
             {!!Object.keys(user).length ? logOutElement() : <></>}
           </Toolbar>
         </AppBar>

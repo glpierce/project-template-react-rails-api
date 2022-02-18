@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :provider_services
     
     resources :tasks, only: [:create, :update, :destroy]
-    resources :bookings, only: [:create, :show]
+    resources :bookings, only: [:create, :show, :destroy]
     resources :owners, only: [:create, :show, :destroy]
     resources :providers, only: [:create, :show, :index, :destroy]
     resources :properties, only: [:index, :create, :show, :destroy]
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post "/login", to: "sessions#create"
     delete "/logout", to: "sessions#destroy"
     get "/me", to: "sessions#show"
+    post "/email", to: "sessions#email"
     # get "/owners/me", to: "owners#show"
     # get "/providers/me", to: "providers#show"
   # end

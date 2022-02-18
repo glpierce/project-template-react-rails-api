@@ -38,17 +38,31 @@ p4 = Property.create!(  address: "11 Wall St, New York, NY 10005 USA",
                         owner_occupied: false,
                         owner_id: o2.id)
 
+puts 'seeding service categories'
+s1 = ServiceCategory.create!( category: 'tree trimming',
+                                description: 'get all of your trees trimmed')
+s2 = ServiceCategory.create!( category: 'gutter cleaning',
+                                description: 'get all of your gutters cleaned')
+s3 = ServiceCategory.create!( category: 'landscaping',
+                                description: 'get all of your landscaping needs taken care of')
+s4 = ServiceCategory.create!( category: 'pool maintenance',
+                                description: 'get your pool cleaned and hardware maintained')
+s5 = ServiceCategory.create!( category: 'junk removal',
+                                description: 'get all of your junk removed')
+
 puts "Seeding tasks..."
 t1 = Task.create!(  task_name: "Landscape",
                     frequency: 60,
                     last_completed: DateTime.new(2022, 1, 26, 1, 5),
                     status: "upcoming",
-                    property_id: p1.id)
+                    property_id: p1.id,
+                    service_category_id: s3.id)
 t2 = Task.create!(  task_name: "Clean Gutters",
                     frequency: 90,
                     last_completed: DateTime.new(2021, 2, 26, 1, 5),
                     status: "past due",
-                    property_id: p2.id)
+                    property_id: p2.id,
+                    service_category_id: s2.id)
 
 puts "Seeding bookings..."
 b1 = Booking.create!(  date: DateTime.new(2022, 2, 26, 1, 5),
@@ -59,5 +73,6 @@ b2 = Booking.create!(  date: DateTime.new(2022, 3, 26, 1, 5),
                        price: 128.65,
                        provider_id: r2.id,
                        task_id: t2.id)
+
 
 puts "Seeding Completed!"
