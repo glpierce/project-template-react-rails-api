@@ -65,7 +65,7 @@ function OwnerDashTable({ user, setUser }) {
                 value='pro'
                 onClick={(e) => handleDelete(e, property.id)}
               >
-                Delete
+                Delete Property
               </Button>
             </TableCell>
           </TableRow>

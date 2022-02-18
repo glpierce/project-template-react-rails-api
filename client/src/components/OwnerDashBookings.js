@@ -15,20 +15,40 @@ import Button from '@mui/material/Button';
 function OwnerDashBookings({ user, setUser }) {
     const [data, setData] = useState([]);
     const [bookings, setBookings] = useState([]);
+    const [cancelToggle, setCancelToggle] = useState(false)
 
 
     useEffect(() => {
         fetch("/me")
         .then(res => res.json())
         .then(propertyData => setData(propertyData.properties))
-      }, [setBookings])
+      }, [cancelToggle])
 
       function handleClick(e, id) {
         fetch(`/bookings/${id}`, {
           method: "DELETE"
         })
-        const updatedbookings = bookings.filter(p => p.id !== id)
-        setBookings([...updatedbookings])
+        .then(r => {
+          if (r.ok) {
+            setCancelToggle(!cancelToggle)
+          }
+        })
+      }
+
+      function renderAction(booking) {
+        if (new Date(booking.date) >= new Date()) {
+          return(
+            <Button
+                variant="contained" 
+                value='pro'
+                onClick={(e) => handleClick(e, booking.id)}
+            >
+              Cancel
+            </Button>
+          )
+        } else {
+          return(<></>)
+        }
       }
 
       function renderBookings() {
@@ -53,11 +73,8 @@ function OwnerDashBookings({ user, setUser }) {
             <TableCell align="left">{r.task_name}</TableCell>
             <TableCell align="left">{Moment(r.date).format("MM/DD/YYYY")}</TableCell>
             <TableCell align="left">${r.price}</TableCell>
-            <Button
-                variant="contained" 
-                value='pro'
-                onClick={(e) => handleClick(e, r.id)}
-              >Cancel</Button>
+            <TableCell align="left">{new Date(r.date) >= new Date() ? "Upcoming" : "Complete"}</TableCell>
+            <TableCell align="left">{renderAction(r)}</TableCell>
           </TableRow>)
           })
         )
@@ -72,6 +89,8 @@ function OwnerDashBookings({ user, setUser }) {
             <TableCell align="left">Service</TableCell>
             <TableCell align="left">Date</TableCell>
             <TableCell align="left">Price</TableCell>
+            <TableCell align="left">Status</TableCell>
+            <TableCell align="left">Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

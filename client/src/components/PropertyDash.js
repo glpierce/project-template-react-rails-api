@@ -14,10 +14,11 @@ function PropertyDash() {
     const [property, setProperty] = useState({})
     const { id } = useParams()
     const history = useHistory()
+    const [deleteToggle, setDeleteToggle] = useState(false)
 
     useEffect(() => {
         getProperty()
-    },[])
+    },[deleteToggle])
 
     function getProperty() {
         fetch(`/properties/${id}`)
@@ -63,9 +64,9 @@ function PropertyDash() {
                 <Button
                   variant="contained" 
                   value='pro'
-                  //onClick={} //add task delete
+                  onClick={(e) => handleDelete(e, task.id)}
                 >
-                  Delete
+                  Delete Task
                 </Button>
                 </TableCell>
               </TableRow>
@@ -74,6 +75,17 @@ function PropertyDash() {
             return(<p>No tasks yet...</p>)
         }
     }
+
+    function handleDelete(e, id) {
+        fetch(`/tasks/${id}`, {
+          method: "DELETE"
+        })
+        .then(r => {
+            if (r.ok) {
+                setDeleteToggle(!deleteToggle)
+            }
+        })
+      }
 
     return(
         <>
