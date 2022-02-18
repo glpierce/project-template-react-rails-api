@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { KeyboardDatePicker } from "@material-ui/pickers";
+import { useHistory } from "react-router-dom"
 import {
     Box,
     FormControl,
@@ -10,65 +11,151 @@ import {
     TextField,
   } from "@mui/material";
 
-function TasksForm() {
+function TasksForm({ user }) {
     const [formData, setFormData] = useState({
-        pool: false,
-        pool_last_completed: '',
-        gutters: false,
-        gutters_last_completed: '',
-        hvac: false,
-        hvac_last_completed: '',
-        chimney: false,
-        chimney_last_completed: '',
-        carpet: false,
-        carpet_last_completed: '',
-        trees: false,
-        trees_last_completed: '',
-        lawn: false,
-        lawn_last_completed: '',
-        landscape: false,
-        landscape_last_completed: '',
-        weeds: false,
-        weeds_last_completed: '',
-        pest_control: false,
-        pest_control_last_completed: ''
+        pool: {
+            has: false,
+            frequency: 7,
+            last_completed: null
+        },
+        gutters: {
+            has: false,
+            frequency: 60,
+            last_completed: null
+        },
+        hvac: {
+            has: false,
+            frequency: 180,
+            last_completed: null
+        },
+        chimney:{
+            has: false,
+            frequency: 120,
+            last_completed: null
+        },
+        carpet: {
+            has: false,
+            frequency: 180,
+            last_completed: null
+        },
+        trees: {
+            has: false,
+            frequency: 60,
+            last_completed: null
+        },
+        lawn: {
+            has: false,
+            frequency: 21,
+            last_completed: null
+        },
+        landscape: {
+            has: false,
+            frequency: 45,
+            last_completed: null
+        },
+        weeds: {
+            has: false,
+            frequency: 30,
+            last_completed: null
+        },
+        pest_control: {
+            has: false,
+            frequency: 365,
+            last_completed: null
+        }
     }) 
+
+    const history = useHistory();
 
     function handleSubmit(e) {
         e.preventDefault()
         let newTasks = [{...formData,}]
-        console.log("NEWTASK: ", newTasks)
         
-        let keysArr = newTasks.filter((d) => Object.keys(newTasks))
-        console.log(keysArr)
-        resetFormData();
+        let keysArr = newTasks.filter((d) => {
+            for(const key in d) {
+                if (d[key].has) {
+                    console.log(d[key])
+                    // fetch('/tasks', {
+                    //     method: 'POST',
+                    //     headers: {
+                    //         "Content-Type": "application/json",
+                    //     },
+                    //     body: JSON.stringify({
+                    //         task_name: key,
+                    //         frequency: d[key].frequency,
+                    //         last_completed: d[key].last_completed
+                    //     })
+                    //     .then((r) => {
+                    //         if (r.ok) {
+                    //             resetFormData();
+                    //             history.push('/owner');
+                    //         } else {
+                    //             r.json().then((err) => console.log(err))
+                    //         }
+                    //     })
+                    // })
+                }
+            }
+            resetFormData();
+        })
     }
 
     function resetFormData() {
         setFormData({
-            pool: false,
-            pool_last_completed: '',
-            gutters: false,
-            gutters_last_completed: '',
-            hvac: false,
-            hvac_last_completed: '',
-            chimney: false,
-            chimney_last_completed: '',
-            carpet: false,
-            carpet_last_completed: '',
-            trees: false,
-            trees_last_completed: '',
-            lawn: false,
-            lawn_last_completed: '',
-            landscape: false,
-            landscape_last_completed: '',
-            weeds: false,
-            weeds_last_completed: '',
-            pest_control: false,
-            pest_control_last_completed: ''
+            pool: {
+                has: false,
+                frequency: 7,
+                last_completed: null
+            },
+            gutters: {
+                has: false,
+                frequency: 60,
+                last_completed: null
+            },
+            hvac: {
+                has: false,
+                frequency: 180,
+                last_completed: null
+            },
+            chimney:{
+                has: false,
+                frequency: 120,
+                last_completed: null
+            },
+            carpet: {
+                has: false,
+                frequency: 180,
+                last_completed: null
+            },
+            trees: {
+                has: false,
+                frequency: 60,
+                last_completed: null
+            },
+            lawn: {
+                has: false,
+                frequency: 21,
+                last_completed: null
+            },
+            landscape: {
+                has: false,
+                frequency: 45,
+                last_completed: null
+            },
+            weeds: {
+                has: false,
+                frequency: 30,
+                last_completed: null
+            },
+            pest_control: {
+                has: false,
+                frequency: 365,
+                last_completed: null
+            }
         })
     }
-    
+
+    console.log(formData)
 
     return(
         <div>
@@ -86,12 +173,12 @@ function TasksForm() {
                         control={<Checkbox />}
                         label="Pool"
                         name="pool"
-                        checked={formData.pool}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.pool.has}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {/* need to finish onChange handling */}
-                    {formData.pool ? 
+                    
+                    {formData.pool.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -101,18 +188,20 @@ function TasksForm() {
                         label="Select when this task was last completed"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        onChange={(e) => setFormData({...formData, ['pool_last_completed']: e})}
+                        name='pool'
+                        value={formData.pool.last_completed}
+                        onChange={(e) => setFormData({...formData, ['pool']: {...formData['pool'], ['last_completed']: e}})}
                      /> : null}
 
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Gutters"
                         name="gutters"
-                        checked={formData.gutters}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.gutters.has}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {formData.gutters ? 
+                    {formData.gutters.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -122,8 +211,8 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.gutters_last_completed}
-                        onChange={(e) => setFormData({...formData, ['gutters_last_completed']: e})}
+                        value={formData.gutters.last_completed}
+                        onChange={(e) => setFormData({...formData, ['gutters']: {...formData['gutters'], ['last_completed']: e}})}
                      /> : null}
 
 
@@ -131,11 +220,11 @@ function TasksForm() {
                         control={<Checkbox />}
                         label="Replac HVAC filter"
                         name="hvac"
-                        checked={formData.hvac}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.hvac.has}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {formData.hvac ? 
+                    {formData.hvac.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -145,18 +234,19 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        onChange={(e) => setFormData({...formData, ['hvac_last_completed']: e})}
+                        value={formData.hvac.last_completed}
+                        onChange={(e) => setFormData({...formData, ['hvac']: {...formData['hvac'], ['last_completed']: e}})}
                      /> : null}
 
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Chimney"
                         name="chimney"
-                        checked={formData.chimney}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.chimneyhvac}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {formData.chimney ? 
+                    {formData.chimney.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -166,19 +256,19 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.chimney_last_completed}
-                        onChange={(e) => setFormData({...formData, ['chimney_last_completed']: e})}
+                        value={formData.chimney.last_completed}
+                        onChange={(e) => setFormData({...formData, ['chimney']: {...formData['chimney'], ['last_completed']: e}})}
                      /> : null}
 
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Carpet"
                         name="carpet"
-                        checked={formData.carpet}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.carpet.has}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {formData.carpet ? 
+                    {formData.carpet.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -188,19 +278,19 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.carpet_last_completed}
-                        onChange={(e) => setFormData({...formData, ['carpet_last_completed']: e})}
+                        value={formData.carpet.last_completed}
+                        onChange={(e) => setFormData({...formData, ['carpet']: {...formData['carpet'], ['last_completed']: e}})}
                      /> : null}
 
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Trees"
                         name="trees"
-                        checked={formData.trees}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.treeshvac}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {formData.trees ? 
+                    {formData.trees.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -210,19 +300,19 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.trees_last_completed}
-                        onChange={(e) => setFormData({...formData, ['tress_last_completed']: e})}
+                        value={formData.trees.last_completed}
+                        onChange={(e) => setFormData({...formData, ['trees']: {...formData['trees'], ['last_completed']: e}})}
                      /> : null}
 
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Lawn"
                         name="lawn"
-                        checked={formData.lawn}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.lawn.has}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {formData.lawn ? 
+                    {formData.lawn.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -232,19 +322,19 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.lawn_last_completed}
-                        onChange={(e) => setFormData({...formData, ['lawn_last_completed']: e})}
+                        value={formData.lawn.last_completed}
+                        onChange={(e) => setFormData({...formData, ['lawn']: {...formData['lawn'], ['last_completed']: e}})}
                      /> : null}
 
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Landscape"
                         name="landscape"
-                        checked={formData.landscape}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.landscapehvac}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {formData.landscape ? 
+                    {formData.landscape.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -254,19 +344,19 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.landscape_last_completed}
-                        onChange={(e) => setFormData({...formData, ['landscape_last_completed']: e})}
+                        value={formData.landscape.last_completed}
+                        onChange={(e) => setFormData({...formData, ['landscape']: {...formData['landscape'], ['last_completed']: e}})}
                      /> : null}
 
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Weeds"
                         name="weeds"
-                        checked={formData.weeds}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.weedshvac}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {formData.weeds ? 
+                    {formData.weeds.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -276,19 +366,19 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.weeds_last_completed}
-                        onChange={(e) => setFormData({...formData, ['weeds_last_completed']: e})}
+                        value={formData.weeds.last_completed}
+                        onChange={(e) => setFormData({...formData, ['weeds']: {...formData['weeds'], ['last_completed']: e}})}
                      /> : null}
 
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Pest Control"
                         name="pest_control"
-                        checked={formData.pest_control}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        checked={formData.pest_controlhvac}
+                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
                         inputProps={{ "aria-label": "controlled" }}
                     />
-                    {formData.pest_control ? 
+                    {formData.pest_control.has ? 
                     <KeyboardDatePicker
                         autoOk='true'
                         variant="inline"
@@ -298,8 +388,8 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.pest_control_last_completed}
-                        onChange={(e) => setFormData({...formData, ['pest_control_last_completed']: e})}
+                        value={formData.pest_control.last_completed}
+                        onChange={(e) => setFormData({...formData, ['pest_control']: {...formData['pest_control'], ['last_completed']: e}})}
                      /> : null}
 
                 </FormGroup>

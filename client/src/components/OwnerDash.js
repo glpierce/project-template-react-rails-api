@@ -32,7 +32,7 @@ function OwnerDash({ user, setUser }) {
                 <OwnerDashBookings user={user} setUser={setUser} /> }
             </div>
             <div id='prop-tasks-forms'>
-                { formToggle ? <NewPropertyForm user={user} taskFormToggle={formToggle} setTaskFormToggle={setFormToggle} /> : <TasksForm />}
+                { formToggle ? <NewPropertyForm user={user} taskFormToggle={formToggle} setTaskFormToggle={setFormToggle} /> : <TasksForm user={user} />}
             </div>
         </div>
     )

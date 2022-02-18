@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
     def create
-        task = @current_user.tasks.create!(task_params)
+        task = Tasks.create!(task_params)
         render json: task, status: 201
     end
 
