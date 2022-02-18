@@ -13,8 +13,6 @@ function OwnerDashTable({ user, setUser }) {
   const [properties, setProperties] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false)
   const history = useHistory()
-
-    console.log('Before click: ', properties)
     
     useEffect(() => {
       setIsLoaded(false)
@@ -26,13 +24,16 @@ function OwnerDashTable({ user, setUser }) {
       })
     }, [])
 
-    function handleClick(e, id) {
+    function handleDelete(e, id) {
       fetch(`/properties/${id}`, {
         method: "DELETE"
       })
       const updatedProperties = properties.filter(p => p.id !== id)
       setProperties([...updatedProperties])
-      console.log('success')
+    }
+
+    function viewProperty(e) {
+      history.push(`/owner/property/${e.target.id}`)
     }
 
     function renderPropertiesTable() {
@@ -48,22 +49,25 @@ function OwnerDashTable({ user, setUser }) {
             <TableCell align="left">{property.address}</TableCell>
             <TableCell align="left">{property.tasks ? property.tasks.length : 0}</TableCell>
             <TableCell align="left">{property.bookings ? property.bookings.length : 0}</TableCell>
-            <TableCell>
-            <Button
-              variant="contained" 
-              value='pro'
-              onClick={() => history.push('owner/findproviders')}
+            <TableCell align="left">
+              <Button
+                variant="contained" 
+                value='pro'
+                id={property.id}
+                onClick={(e) => viewProperty(e)}
+                >
+                View Property
+              </Button>
+            </TableCell>
+            <TableCell align="left">          
+              <Button
+                variant="contained" 
+                value='pro'
+                onClick={(e) => handleDelete(e, property.id)}
               >
-              Find Provider
-            </Button>
-              </TableCell>           
-            <Button
-              variant="contained" 
-              value='pro'
-              onClick={(e) => handleClick(e, property.id)}
-            >
-              Delete
-            </Button>
+                Delete
+              </Button>
+            </TableCell>
           </TableRow>
         ))
         return(propertiesRows)

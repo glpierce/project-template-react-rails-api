@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function NavigationBar({ user, setUser}) {
-console.log(user)
     const classes = useStyles();
 
     function logOut() {
