@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useHistory } from 'react-router-dom'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,6 +12,7 @@ import Button from '@mui/material/Button';
 function OwnerDashTable({ user, setUser }) {
   const [properties, setProperties] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false)
+  const history = useHistory()
 
     console.log('Before click: ', properties)
     
@@ -46,6 +48,15 @@ function OwnerDashTable({ user, setUser }) {
             <TableCell align="left">{property.address}</TableCell>
             <TableCell align="left">{property.tasks ? property.tasks.length : 0}</TableCell>
             <TableCell align="left">{property.bookings ? property.bookings.length : 0}</TableCell>
+            <TableCell>
+            <Button
+              variant="contained" 
+              value='pro'
+              onClick={() => history.push('owner/findproviders')}
+              >
+              Find Provider
+            </Button>
+              </TableCell>           
             <Button
               variant="contained" 
               value='pro'
