@@ -11,7 +11,7 @@ import {
 import Box from "@mui/material/Box";
 import { useHistory } from "react-router-dom";
 
-function NewPropertyForm({user}) {
+function NewPropertyForm({user, taskFormToggle, setTaskFormToggle}) {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [ownerOccupied, setOwnerOccupied] = useState(false);
@@ -20,6 +20,7 @@ function NewPropertyForm({user}) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setTaskFormToggle(!taskFormToggle)
 
     const newProperty = {
       address: address,
