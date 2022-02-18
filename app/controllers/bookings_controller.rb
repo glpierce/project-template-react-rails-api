@@ -7,7 +7,7 @@ class BookingsController < ApplicationController
 
     def show 
         selected_booking = Booking.find(params[:id])
-        render json: selected_booking, include: ['provider'], status: 200
+        render json: selected_booking, status: 200
     end
 
     def index 
