@@ -100,6 +100,9 @@ function TasksForm({ user }) {
         })
     }
 
+
+    const handleChecked = (e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})
+
     function resetFormData() {
         setFormData({
             pool: {
@@ -173,8 +176,8 @@ function TasksForm({ user }) {
                         control={<Checkbox />}
                         label="Pool"
                         name="pool"
-                        checked={formData.pool.has}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        checked={formData['pool'].has}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     
@@ -185,6 +188,7 @@ function TasksForm({ user }) {
                         inputVariant="outlined"
                         openTo="year"
                         format="MM/dd/yyyy"
+                        disableFuture
                         label="Select when this task was last completed"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
@@ -198,7 +202,7 @@ function TasksForm({ user }) {
                         label="Gutters"
                         name="gutters"
                         checked={formData.gutters.has}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.gutters.has ? 
@@ -207,6 +211,7 @@ function TasksForm({ user }) {
                         variant="inline"
                         inputVariant="outlined"
                         openTo="year"
+                        disableFuture
                         format="MM/dd/yyyy"
                         label="Select date"
                         views={["year", "month", "date"]}
@@ -218,10 +223,10 @@ function TasksForm({ user }) {
 
                     <FormControlLabel
                         control={<Checkbox />}
-                        label="Replac HVAC filter"
+                        label="Replace HVAC filter"
                         name="hvac"
                         checked={formData.hvac.has}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.hvac.has ? 
@@ -232,6 +237,7 @@ function TasksForm({ user }) {
                         openTo="year"
                         format="MM/dd/yyyy"
                         label="Select date"
+                        disableFuture
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
                         value={formData.hvac.last_completed}
@@ -242,8 +248,8 @@ function TasksForm({ user }) {
                         control={<Checkbox />}
                         label="Chimney"
                         name="chimney"
-                        checked={formData.chimneyhvac}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        checked={formData.chimney.has}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.chimney.has ? 
@@ -253,6 +259,7 @@ function TasksForm({ user }) {
                         inputVariant="outlined"
                         openTo="year"
                         format="MM/dd/yyyy"
+                        disableFuture
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
@@ -265,7 +272,7 @@ function TasksForm({ user }) {
                         label="Carpet"
                         name="carpet"
                         checked={formData.carpet.has}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.carpet.has ? 
@@ -275,6 +282,7 @@ function TasksForm({ user }) {
                         inputVariant="outlined"
                         openTo="year"
                         format="MM/dd/yyyy"
+                        disableFuture
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
@@ -286,8 +294,8 @@ function TasksForm({ user }) {
                         control={<Checkbox />}
                         label="Trees"
                         name="trees"
-                        checked={formData.treeshvac}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        checked={formData.trees.has}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.trees.has ? 
@@ -297,6 +305,7 @@ function TasksForm({ user }) {
                         inputVariant="outlined"
                         openTo="year"
                         format="MM/dd/yyyy"
+                        disableFuture
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
@@ -309,7 +318,7 @@ function TasksForm({ user }) {
                         label="Lawn"
                         name="lawn"
                         checked={formData.lawn.has}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.lawn.has ? 
@@ -320,6 +329,7 @@ function TasksForm({ user }) {
                         openTo="year"
                         format="MM/dd/yyyy"
                         label="Select date"
+                        disableFuture
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
                         value={formData.lawn.last_completed}
@@ -330,8 +340,8 @@ function TasksForm({ user }) {
                         control={<Checkbox />}
                         label="Landscape"
                         name="landscape"
-                        checked={formData.landscapehvac}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        checked={formData.landscape.has}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.landscape.has ? 
@@ -341,6 +351,7 @@ function TasksForm({ user }) {
                         inputVariant="outlined"
                         openTo="year"
                         format="MM/dd/yyyy"
+                        disableFuture
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
@@ -352,8 +363,8 @@ function TasksForm({ user }) {
                         control={<Checkbox />}
                         label="Weeds"
                         name="weeds"
-                        checked={formData.weedshvac}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        checked={formData.weeds.has}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.weeds.has ? 
@@ -365,6 +376,7 @@ function TasksForm({ user }) {
                         format="MM/dd/yyyy"
                         label="Select date"
                         views={["year", "month", "date"]}
+                        disableFuture
                         InputAdornmentProps={{ position: "start" }}
                         value={formData.weeds.last_completed}
                         onChange={(e) => setFormData({...formData, ['weeds']: {...formData['weeds'], ['last_completed']: e}})}
@@ -374,8 +386,8 @@ function TasksForm({ user }) {
                         control={<Checkbox />}
                         label="Pest Control"
                         name="pest_control"
-                        checked={formData.pest_controlhvac}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})}
+                        checked={formData.pest_control.has}
+                        onChange={handleChecked}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.pest_control.has ? 
@@ -386,12 +398,12 @@ function TasksForm({ user }) {
                         openTo="year"
                         format="MM/dd/yyyy"
                         label="Select date"
+                        disableFuture
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
                         value={formData.pest_control.last_completed}
                         onChange={(e) => setFormData({...formData, ['pest_control']: {...formData['pest_control'], ['last_completed']: e}})}
                      /> : null}
-
                 </FormGroup>
                 <br />
                 <Button variant="outlined" onClick={handleSubmit}>
