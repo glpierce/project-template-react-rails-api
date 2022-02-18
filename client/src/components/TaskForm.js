@@ -34,16 +34,11 @@ function TasksForm() {
         pest_control_last_completed: ''
     }) 
 
-    function handleTaskClick(e, name) {
-        console.log(e.target.checked, name)
-        setFormData({...formData, [name]: e.target.checked})
-    }
-
     function handleChange(e, name) {
-        setFormData({
-            ...formData,
-            [name]: e,
-        })
+        console.log(e)
+        const value = e.target.type !== 'checkbox' || null ? e : e.target.checked;
+        console.log("VALUE: ", value)
+        setFormData({...formData, [name]: value})
     }
 
     function handleSubmit(e) {
@@ -70,7 +65,7 @@ function TasksForm() {
                         control={<Checkbox />}
                         label="Pool"
                         checked={formData.pool}
-                        onChange={(e) => handleTaskClick(e,'pool')}
+                        onChange={(e) => handleChange(e,'pool')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {/* need to finish onChange handling */}
@@ -84,6 +79,7 @@ function TasksForm() {
                         label="Select when this task was last completed"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
+                        value={formData.pool_last_completed}
                         onChange={(e) => handleChange(e, 'pool_last_completed')}
                      /> : null}
 
@@ -91,7 +87,7 @@ function TasksForm() {
                         control={<Checkbox />}
                         label="Gutters"
                         checked={formData.gutters}
-                        onChange={(e) => handleTaskClick(e, 'gutters')}
+                        onChange={(e) => handleChange(e, 'gutters')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.gutters ? 
@@ -104,7 +100,7 @@ function TasksForm() {
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
                         value={formData.gutters_last_completed}
-                        onChange={(e) => handleTaskClick(e, 'gutters_last_completed')}
+                        onChange={(e) => handleChange(e, 'gutters_last_completed')}
                      /> : null}
 
 
@@ -113,7 +109,7 @@ function TasksForm() {
                         label="Replac HVAC filter"
                         name="hvac"
                         checked={formData.hvac}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleChange(e, 'hvac')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.hvac ? 
@@ -133,7 +129,7 @@ function TasksForm() {
                         label="Chimney"
                         name="chimney"
                         checked={formData.chimney}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleChange(e, 'chimney')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.chimney ? 
@@ -153,7 +149,7 @@ function TasksForm() {
                         label="Carpet"
                         name="carpet"
                         checked={formData.carpet}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleChange(e, 'carpet')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.carpet ? 
@@ -173,7 +169,7 @@ function TasksForm() {
                         label="Trees"
                         name="trees"
                         checked={formData.trees}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleChange(e, 'trees')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.trees ? 
@@ -193,7 +189,7 @@ function TasksForm() {
                         label="Lawn"
                         name="lawn"
                         checked={formData.lawn}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleChange(e, 'lawn')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.lawn ? 
@@ -213,7 +209,7 @@ function TasksForm() {
                         label="Landscape"
                         name="landscape"
                         checked={formData.landscape}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleChange(e, 'landscape')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.landscape ? 
@@ -233,7 +229,7 @@ function TasksForm() {
                         label="Weeds"
                         name="weeds"
                         checked={formData.weeds}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleChange(e, 'weeds')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.weeds ? 
@@ -253,7 +249,7 @@ function TasksForm() {
                         label="Pest Control"
                         name="pest_control"
                         checked={formData.pest_control}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleChange(e, 'pest_control')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.pest_control ? 
