@@ -2,7 +2,7 @@ class BookingsController < ApplicationController
 
     def create
         new_booking = Booking.create!(booking_params)
-        render json: new_booking, status: :created
+        render json: {}, status: :created
     end
 
     def show 
@@ -14,6 +14,7 @@ class BookingsController < ApplicationController
         bookings = Booking.all
         render json: bookings, status: 200
     end
+
     def destroy
         selected_property = Booking.find(params[:id])
         selected_property.destroy
