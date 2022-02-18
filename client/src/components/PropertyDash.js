@@ -66,7 +66,7 @@ function PropertyDash() {
                   value='pro'
                   onClick={(e) => handleDelete(e, task.id)}
                 >
-                  Delete
+                  Delete Task
                 </Button>
                 </TableCell>
               </TableRow>
