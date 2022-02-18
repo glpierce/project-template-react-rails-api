@@ -80,7 +80,6 @@ function ProviderDashTable({user}) {
               <TableCell>Property Address</TableCell>
               <TableCell align="left">Scheduled Date</TableCell>
               <TableCell align="left">Task</TableCell>
-              <TableCell align="left">Bookings</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
