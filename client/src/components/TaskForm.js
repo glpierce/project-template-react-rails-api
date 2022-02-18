@@ -34,9 +34,16 @@ function TasksForm() {
         pest_control_last_completed: ''
     }) 
 
-    {/* need to finish onChange handling */}
-    function handleChange(e) {
-        console.log(e)
+    function handleTaskClick(e, name) {
+        console.log(e.target.checked, name)
+        setFormData({...formData, [name]: e.target.checked})
+    }
+
+    function handleChange(e, name) {
+        setFormData({
+            ...formData,
+            [name]: e,
+        })
     }
 
     function handleSubmit(e) {
@@ -44,7 +51,7 @@ function TasksForm() {
         console.log('Submitted')
     }
 
-    console.log(formData)
+    console.log('FormData: ', formData)
     
 
     return(
@@ -62,9 +69,8 @@ function TasksForm() {
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Pool"
-                        name="pool"
                         checked={formData.pool}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleTaskClick(e,'pool')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {/* need to finish onChange handling */}
@@ -75,19 +81,17 @@ function TasksForm() {
                         inputVariant="outlined"
                         openTo="year"
                         format="MM/dd/yyyy"
-                        label="Select date"
+                        label="Select when this task was last completed"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        // value={formData.pool_last_completed}
-                        // onChange={handleChange}
+                        onChange={(e) => handleChange(e, 'pool_last_completed')}
                      /> : null}
 
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Gutters"
-                        name="gutters"
                         checked={formData.gutters}
-                        onChange={(e) => setFormData({...formData, [e.target.name]: e.target.checked})}
+                        onChange={(e) => handleTaskClick(e, 'gutters')}
                         inputProps={{ "aria-label": "controlled" }}
                     />
                     {formData.gutters ? 
@@ -100,7 +104,7 @@ function TasksForm() {
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
                         value={formData.gutters_last_completed}
-                        onChange={handleChange}
+                        onChange={(e) => handleTaskClick(e, 'gutters_last_completed')}
                      /> : null}
 
 
@@ -121,8 +125,7 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.hvac_last_completed}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, 'hvac_last_completed')}
                      /> : null}
 
                     <FormControlLabel
@@ -142,8 +145,7 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.chimney_last_completed}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, 'chimney_last_completed')}
                      /> : null}
 
                     <FormControlLabel
@@ -163,8 +165,7 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.carpet_last_completed}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, 'carpet_last_completed')}
                      /> : null}
 
                     <FormControlLabel
@@ -184,8 +185,7 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.trees_last_completed}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, 'trees_last_completed')}
                      /> : null}
 
                     <FormControlLabel
@@ -205,8 +205,7 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.lawn_last_completed}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, 'lawn_last_completed')}
                      /> : null}
 
                     <FormControlLabel
@@ -226,8 +225,7 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.landscape_last_completed}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, 'landscape_last_completed')}
                      /> : null}
 
                     <FormControlLabel
@@ -247,8 +245,7 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.weeds_last_completed}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, 'weeds_last_completed')}
                      /> : null}
 
                     <FormControlLabel
@@ -268,8 +265,7 @@ function TasksForm() {
                         label="Select date"
                         views={["year", "month", "date"]}
                         InputAdornmentProps={{ position: "start" }}
-                        value={formData.pest_control_last_completed}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, 'pest_control_last_completed')}
                      /> : null}
 
                 </FormGroup>
