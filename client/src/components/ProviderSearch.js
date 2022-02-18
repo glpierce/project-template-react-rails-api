@@ -16,6 +16,8 @@ function ProviderSearch() {
     const [task, setTask] = useState({})
     const [providers, setProviders] = useState([])
     const initialLoad = useRef(true);
+    const [bookingDates, setBookingDates] = useState([])
+    const history = useHistory()
 
 
     useEffect(() => {
@@ -31,21 +33,37 @@ function ProviderSearch() {
       if (!initialLoad.current) {
         fetch(`/provider_services/${task.service_category_id}`)
         .then(res => res.json())
-        .then(p => {
-          console.log(p)
-          setProviders(p)
-        })
+        .then(p => setProviders(p))
       }
     }, [task])
 
+    useEffect(() => {
+      if (!initialLoad.current) {
+        setBookingDates(providers.map(provider => {return({serviceId: provider.id, bookingDate: (new Date())})}))
+      }
+    },[providers])
+
     function bookService(provider) {
-      const postObj = {
+      const bookingDate = bookingDates.find(bookingDate => bookingDate.serviceId === provider.id).bookingDate
+      const payload = {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({provider_id: provider.provider.id, task_id: task.id, price: provider.price})
+        body: JSON.stringify({  provider_id: provider.provider.id, 
+                                task_id: task.id, 
+                                price: provider.price, 
+                                date: bookingDate
+                              })
       }
+      fetch("/bookings", payload)
+      .then(r => r.ok ? history.push(`/owner/property/${id}`) : null)
+    }
+
+    function updateBookingDates(e, serviceId) {
+      const updatedBookingDates = [...bookingDates.filter(bookingDate => bookingDate.serviceId !== serviceId)]
+      updatedBookingDates.push({serviceId: serviceId, bookingDate: e})
+      setBookingDates(updatedBookingDates)
     }
 
     function renderProvidersTable() {
@@ -63,18 +81,18 @@ function ProviderSearch() {
               <TableCell align="left">{`$${provider.price}`}</TableCell>
               <TableCell align="left">
                 <FormControl>
-                <KeyboardDatePicker
-                  disablePast
-                  variant="inline"
-                  inputVariant="outlined"
-                  openTo="year"
-                  format="MM/dd/yyyy"
-                  label="Select date"
-                  views={["year", "month", "date"]}
-                  InputAdornmentProps={{ position: "start" }}
-                  // value={selectedDate}
-                  // onChange={handleDateChange}
-                />
+                  <KeyboardDatePicker
+                    disablePast
+                    variant="inline"
+                    inputVariant="outlined"
+                    openTo="year"
+                    format="MM/dd/yyyy"
+                    label="Select date"
+                    views={["year", "month", "date"]}
+                    InputAdornmentProps={{ position: "start" }}
+                    value={bookingDates.find(dateObj => dateObj.serviceId === provider.id).bookingDate}
+                    onChange={e => updateBookingDates(e, provider.id)}
+                  />
                   <Button
                     variant="outlined" 
                     value='pro'
@@ -105,7 +123,7 @@ function ProviderSearch() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {!!providers.length ? renderProvidersTable() : <p>Providers loading...</p>}
+            {!!bookingDates.length ? renderProvidersTable() : <p>Providers loading...</p>}
           </TableBody>
         </Table>
       </TableContainer>
