@@ -8,13 +8,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 function OwnerDashBookings({ user, setUser }) {
-    const [bookings, setBookings] = useState([]);
+    const [data, setData] = useState([]);
 
     useEffect(() => {
         fetch("/me")
         .then(res => res.json())
-        .then(bookingsData => console.log('Bookings: ', bookingsData.properties))
-    }, [])
+        .then(propertyData => setData(propertyData.properties))
+      }, [])
 
   return (
     <TableContainer component={Paper}>
@@ -22,25 +22,23 @@ function OwnerDashBookings({ user, setUser }) {
         <TableHead>
           <TableRow>
             <TableCell>Bookings</TableCell>
-            <TableCell align="right">Property</TableCell>
-            <TableCell align="right">Service</TableCell>
-            <TableCell align="right">Date</TableCell>
-            <TableCell align="right">Provider</TableCell>
-            <TableCell align="right">Price</TableCell>
+            <TableCell align="left">Property</TableCell>
+            <TableCell align="left">Service</TableCell>
+            <TableCell align="left">Date</TableCell>
+            <TableCell align="left">Price</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {bookings.map((booking) => (
+          {data.map((d) => (
             <TableRow
-              key={booking.name}
+              key={d.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">{booking.name} </TableCell>
-              <TableCell align="right">{booking.name}</TableCell>
-              <TableCell align="right">{booking.service}</TableCell>
-              <TableCell align="right">{booking.date}</TableCell>
-              <TableCell align="right">{booking.provider}</TableCell>
-              <TableCell align="right">{booking.price}</TableCell>
+              <TableCell component="th" scope="row">{d.id} </TableCell>
+              <TableCell align="left">{d.address}</TableCell>
+              <TableCell align="left">{d.tasks.map((t) => t)}</TableCell>
+              {d.bookings.map((b) => <TableCell align="left">{b.date}</TableCell>)}
+              {d.bookings.map((b) => <TableCell align="left">{b.price}</TableCell>)}
             </TableRow>
           ))}
         </TableBody>

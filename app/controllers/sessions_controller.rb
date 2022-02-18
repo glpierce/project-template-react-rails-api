@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
     end
 
     def show
-        render json: @current_user
+        render json: @current_user, include: ['properties', 'properties.tasks', 'tasks.bookings']
     end
 
     def destroy

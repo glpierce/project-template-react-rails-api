@@ -3,7 +3,7 @@ class OwnersController < ApplicationController
 
     def show 
         owner = Owner.find(params[:id])
-        render json: owner, include: '**', status: 200
+        render json: owner, include: ['properties', 'properties.tasks', 'tasks.bookings'], status: 200
     end
 
     def create
