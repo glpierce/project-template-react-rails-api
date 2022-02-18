@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-    skip_before_action :authorize, only: :create
+    skip_before_action :authorize, only: [:create, :email]
 
     def create
        if (Owner.find_by(email: params[:email]))
@@ -40,6 +40,14 @@ class SessionsController < ApplicationController
 
     def show
         render json: @current_user
+    end
+
+    def email
+        if (Owner.find_by(email: params[:email]) || Provider.find_by(email: params[:email]))
+            render json: {error: "email already exists"}, status: 401
+        else
+            head :no_content
+        end
     end
 
     def destroy

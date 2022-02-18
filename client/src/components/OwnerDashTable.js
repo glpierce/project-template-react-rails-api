@@ -15,7 +15,7 @@ function OwnerDashTable({ user, setUser }) {
     console.log('Before click: ', properties)
     
     useEffect(() => {
-      //setIsLoaded(false)
+      setIsLoaded(false)
       fetch("/me")
       .then(res => res.json())
       .then(propertyData => {
