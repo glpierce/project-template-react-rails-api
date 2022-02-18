@@ -18,27 +18,27 @@ function OwnerDashBookings({ user, setUser }) {
 
       function renderBookings() {
         const bookingRows = [];
-        data.forEach((p) => p.tasks.forEach((t, pindex, p) => t.bookings.forEach((b, tindex, bookings) => {
+        data.forEach((p) => p.tasks.forEach((t) => t.bookings.forEach((b) => {
           bookingRows.push({
-            // address: p[pindex].address,
-            task_name: bookings[tindex].task_name,
+            address: p.address,
+            task_name: t.task_name,
             date: b.date,
             price: b.price,
             id: b.id
           })
         })))
-        console.log(bookingRows)
         return (
           bookingRows.map((r) => {
+            return(
             <TableRow
             key={r.id}
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
           >
-            {/* <TableCell align="left">{r.address}</TableCell> */}
+            <TableCell align="left">{r.address}</TableCell>
             <TableCell align="left">{r.task_name}</TableCell>
             <TableCell align="left">{r.date}</TableCell>
             <TableCell align="left">{r.price}</TableCell>
-          </TableRow>
+          </TableRow>)
           })
         )
       }
@@ -48,7 +48,6 @@ function OwnerDashBookings({ user, setUser }) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Bookings</TableCell>
             <TableCell align="left">Property</TableCell>
             <TableCell align="left">Service</TableCell>
             <TableCell align="left">Date</TableCell>
@@ -56,7 +55,7 @@ function OwnerDashBookings({ user, setUser }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {!!data.length ? renderBookings() : <p>Bookings loading...</p>}
+          {renderBookings()}
         </TableBody>
       </Table>
     </TableContainer>
