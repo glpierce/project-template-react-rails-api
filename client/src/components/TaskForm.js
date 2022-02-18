@@ -73,8 +73,9 @@ function TasksForm({ user }) {
         
         let keysArr = newTasks.filter((d) => {
             for(const key in d) {
+                console.log("d[key]:", d[key])
                 if (d[key].has) {
-                    console.log(d[key])
+                    console.log("d[key]:", d[key])
                     // fetch('/tasks', {
                     //     method: 'POST',
                     //     headers: {
