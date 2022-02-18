@@ -27,6 +27,7 @@ function OwnerDashTable({ user, setUser }) {
     }, [])
 
     function handleClick(e, id) {
+      console.log(id)
       fetch(`/properties/${id}`, {
         method: "DELETE"
       })

@@ -53,10 +53,15 @@ console.log(user)
 
     function userButtonElement(){
       return(
+        user.account_type === 'owner' ?
         <Link to="/owner" className={classes.link} style={{width: "10%"}} >
-          Welcome, {user.first_name} !
-        </Link>
-      )
+          Welcome, {user.first_name} ! 
+        </Link> :
+        <Link to="/provider" className={classes.link} style={{width: "10%"}} >
+          Welcome, {user.name} !
+        </Link> 
+      
+        )
     }
 
     function logOutElement() {
