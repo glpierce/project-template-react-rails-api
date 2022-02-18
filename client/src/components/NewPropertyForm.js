@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TasksForm from "./TaskForm";
+import TasksForm from "./TasksForm";
 import {
   FormControl,
   TextField,
@@ -11,16 +11,14 @@ import {
 import Box from "@mui/material/Box";
 import { useHistory } from "react-router-dom";
 
-function NewPropertyForm({user, taskFormToggle, setTaskFormToggle}) {
+function NewPropertyForm({user}) {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [ownerOccupied, setOwnerOccupied] = useState(false);
-  const [formToggle, setFormToggle] = useState(false)
   const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
-    setTaskFormToggle(!taskFormToggle)
 
     const newProperty = {
       address: address,
@@ -38,14 +36,12 @@ function NewPropertyForm({user, taskFormToggle, setTaskFormToggle}) {
     }).then((r) => {
       if (r.ok) {
           r.json().then((newProperty) => {
-            history.push("/owner")
+            history.push(`/owner/property/new/${newProperty.id}`)
           });
       } else {
           r.json().then((err) => console.log(err.errors)); //finish error handling
       }
-      setFormToggle(!formToggle)
     });
-    resetFormData()
     // if r.ok is true, set a state propertyForm - booloean, initialize to true, if true render property, otherwise task form.  
     // Switch state to false and render form for the tasks, persist tasks, then route to history.push(/owner)
   }

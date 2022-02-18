@@ -1,7 +1,11 @@
 class TasksController < ApplicationController
 
+    def index
+        render json: Task.all
+    end
+
     def create
-        task = Tasks.create!(task_params)
+        task = Task.create!(task_params)
         render json: task, status: 201
     end
 
