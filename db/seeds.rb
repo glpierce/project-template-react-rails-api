@@ -39,16 +39,16 @@ p4 = Property.create!(  address: "11 Wall St, New York, NY 10005 USA",
                         owner_id: o2.id)
 
 puts 'seeding service categories...'
-s1 = ServiceCategory.create!(   category: 'tree trimming',
+s1 = ServiceCategory.create!(   category: 'trees',
                                 description: 'get all of your trees trimmed')
-s2 = ServiceCategory.create!(   category: 'gutter cleaning',
+s2 = ServiceCategory.create!(   category: 'gutters',
                                 description: 'get all of your gutters cleaned')
-s3 = ServiceCategory.create!(   category: 'landscaping',
+s3 = ServiceCategory.create!(   category: 'landscape',
                                 description: 'get all of your landscaping needs taken care of')
-s4 = ServiceCategory.create!(   category: 'pool maintenance',
+s4 = ServiceCategory.create!(   category: 'pool',
                                 description: 'get your pool cleaned and hardware maintained')
-s5 = ServiceCategory.create!(   category: 'junk removal',
-                                description: 'get all of your junk removed')
+s5 = ServiceCategory.create!(   category: 'chimney',
+                                description: 'get your chimney inspected and cleaned')
 
 puts 'seeding provider services...'
 ps1 = ProviderService.create!(  price: 300, 
