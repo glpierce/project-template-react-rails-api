@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
             owner = Owner.find_by(email: params[:email])
             if owner&.authenticate(params[:password])
                 session[:owner_id] = owner.id
-                render json: owner, status: :created
+                render json: owner,  status: :created
                 # session[:owner_id] = owner.id
                 # render json: owner
             else
@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
     end
 
     def show
-        render json: @current_user
+        render json: @current_user, include: ['properties', 'properties.tasks', 'tasks.bookings'], status: 200
     end
 
     def email
