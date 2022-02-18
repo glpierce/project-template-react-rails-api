@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resources :services
     resources :provider_services, only: [:show]
     
-    resources :tasks, only: [:create, :show, :update, :destroy]
+    resources :tasks, only: [:index, :create, :show, :update, :destroy]
     resources :bookings, only: [:create, :show, :destroy]
     resources :owners, only: [:create, :show, :destroy]
     resources :providers, only: [:create, :show, :index, :destroy]

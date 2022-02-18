@@ -3,7 +3,7 @@ import OwnerDashList from './OwnerDashList';
 import OwnerDashTable from './OwnerDashTable';
 import OwnerDashBookings from "./OwnerDashBookings";
 import NewPropertyForm from "./NewPropertyForm";
-import TasksForm from "./TaskForm";
+import TasksForm from "./TasksForm";
 
 function OwnerDash({ user, setUser }) {
     const [tableToggle, setTableToggle] = useState(true)
@@ -32,7 +32,7 @@ function OwnerDash({ user, setUser }) {
                 <OwnerDashBookings user={user} setUser={setUser} /> }
             </div>
             <div id='prop-tasks-forms'>
-                { formToggle ? <NewPropertyForm user={user} taskFormToggle={formToggle} setTaskFormToggle={setFormToggle} /> : <TasksForm user={user} />}
+                <NewPropertyForm user={user} taskFormToggle={formToggle} setTaskFormToggle={setFormToggle} /> 
             </div>
         </div>
     )

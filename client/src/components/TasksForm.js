@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { KeyboardDatePicker } from "@material-ui/pickers";
-import { useHistory } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 import {
     Box,
     FormControl,
@@ -12,56 +12,68 @@ import {
   } from "@mui/material";
 
 function TasksForm({ user }) {
+    const {id} = useParams()
+    console.log(id)
     const [formData, setFormData] = useState({
         pool: {
             has: false,
             frequency: 7,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 1
         },
         gutters: {
             has: false,
             frequency: 60,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 2
         },
         hvac: {
             has: false,
             frequency: 180,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 3
         },
         chimney:{
             has: false,
             frequency: 120,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 4
         },
         carpet: {
             has: false,
             frequency: 180,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 5
         },
         trees: {
             has: false,
             frequency: 60,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 6
         },
         lawn: {
             has: false,
             frequency: 21,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 7
         },
         landscape: {
             has: false,
             frequency: 45,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 8
         },
         weeds: {
             has: false,
             frequency: 30,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 9
         },
         pest_control: {
             has: false,
             frequency: 365,
-            last_completed: null
+            last_completed: null,
+            service_category_id: 10
         }
     }) 
 
@@ -74,94 +86,39 @@ function TasksForm({ user }) {
         let keysArr = newTasks.filter((d) => {
             for(const key in d) {
                 if (d[key].has) {
-                    console.log(d[key])
-                    // fetch('/tasks', {
-                    //     method: 'POST',
-                    //     headers: {
-                    //         "Content-Type": "application/json",
-                    //     },
-                    //     body: JSON.stringify({
-                    //         task_name: key,
-                    //         frequency: d[key].frequency,
-                    //         last_completed: d[key].last_completed
-                    //     })
-                    //     .then((r) => {
-                    //         if (r.ok) {
-                    //             resetFormData();
-                    //             history.push('/owner');
-                    //         } else {
-                    //             r.json().then((err) => console.log(err))
-                    //         }
-                    //     })
-                    // })
+                    const newTask = {
+                        task_name: key,
+                        frequency: d[key].frequency,
+                        last_completed: d[key].last_completed,
+                        service_category_id: d[key].service_category_id,
+                        property_id: id
+                    }
+                    console.log("NEW TASK: ", newTask)
+                    fetch('/tasks', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(newTask)
+                    }).then((r) => {
+                        if (r.ok) {
+                            r.json().then((newTask) => {
+                                history.push('/owner');
+                            });
+                        } else {
+                            r.json().then((err) => console.log(err))
+                        }
+                    })
                 }
             }
-            resetFormData();
         })
     }
 
 
     const handleChecked = (e) => setFormData({...formData, [e.target.name]: {...formData[e.target.name], ['has']: e.target.checked}})
 
-    function resetFormData() {
-        setFormData({
-            pool: {
-                has: false,
-                frequency: 7,
-                last_completed: null
-            },
-            gutters: {
-                has: false,
-                frequency: 60,
-                last_completed: null
-            },
-            hvac: {
-                has: false,
-                frequency: 180,
-                last_completed: null
-            },
-            chimney:{
-                has: false,
-                frequency: 120,
-                last_completed: null
-            },
-            carpet: {
-                has: false,
-                frequency: 180,
-                last_completed: null
-            },
-            trees: {
-                has: false,
-                frequency: 60,
-                last_completed: null
-            },
-            lawn: {
-                has: false,
-                frequency: 21,
-                last_completed: null
-            },
-            landscape: {
-                has: false,
-                frequency: 45,
-                last_completed: null
-            },
-            weeds: {
-                has: false,
-                frequency: 30,
-                last_completed: null
-            },
-            pest_control: {
-                has: false,
-                frequency: 365,
-                last_completed: null
-            }
-        })
-    }
-
-    console.log(formData)
-
     return(
-        <div>
+        <div id='tasks-form'>
             <Box
                 component="form"
                 sx={{
@@ -171,7 +128,8 @@ function TasksForm({ user }) {
                 {/* need to finish handleSubmit */}
                 <FormControl>
                 <FormGroup>
-                    Which of the following apply to this property?
+                    <h1>Property Maintenance Tasks</h1>
+                    <p>Which of the following apply to this property?</p>
                     <FormControlLabel
                         control={<Checkbox />}
                         label="Pool"

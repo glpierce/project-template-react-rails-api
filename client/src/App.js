@@ -9,6 +9,7 @@ import { Switch, Route } from "react-router-dom";
 import ProviderSearch from "./components/ProviderSearch";
 import PropertyDash from "./components/PropertyDash";
 import DateFnsUtils from '@date-io/date-fns';
+import TasksForm from "./components/TasksForm";
 
 import '@fontsource/roboto/400.css';
 import NewPropertyForm from "./components/NewPropertyForm";
@@ -33,6 +34,10 @@ function App() {
 
           <Route path={"/provider"}>
             <ProviderDash user={user} setUser={setUser} />
+          </Route>
+
+          <Route path={"/owner/property/new/:id"} >
+            <TasksForm user={user} setUser={setUser} />
           </Route>
 
           <Route path={"/owner/property/:id/book/:taskId"}>
