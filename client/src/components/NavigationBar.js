@@ -77,7 +77,7 @@ function NavigationBar({ user, setUser}) {
           <Toolbar variant="dense">
             {!!Object.keys(user).length ? <div className={classes.placeholder}></div> : <></>}
             <Typography variant="h4" className={classes.logo}>
-              HOWSD
+              Housd
             </Typography>
             {!!Object.keys(user).length ? userButtonElement() : <></>}
             {!!Object.keys(user).length ? logOutElement() : <></>}
