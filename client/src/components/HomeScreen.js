@@ -17,6 +17,7 @@ function HomeScreen({ user, setUser}) {
         <SignupTabs user={user} setUser={setUser} />
       </div>
       <div>---- OR ----</div>
+      <br/>
       <div id="login">
         <Login user={user} setUser={setUser} />
       </div>
